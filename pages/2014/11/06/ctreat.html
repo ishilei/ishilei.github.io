@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AdHocMonitor系统中关于视频部分的说明</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ishilei">
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="../../../../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="../../../../theme/css/font-awesome.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../../../../theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="../../../../theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../../../theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../../../theme/images/apple-touch-icon-114x114.png">
+
+    <link href="../../../../" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="../../../../index.html">地球太冷 </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                          <li class="divider-vertical"></li>
+                  <li class="active">
+                    <a href="../../../../category/technology.html">
+						<i class="icon-folder-open icon-large"></i>Technology
+					</a>
+                  </li>
+
+                          <ul class="nav pull-right">
+                                <li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                          </ul>
+
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="span9" id="content">
+<section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to AdHocMonitor系统中关于视频部分的说明">
+                                        AdHocMonitor系统中关于视频部分的说明
+                                </a>
+                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+<footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-11-06T20:10:00">
+        <i class="icon-calendar"></i>2014-11-06
+</abbr>
+<span class="label">By</span>
+<a href="../../../../author/shilei.html"><i class="icon-user"></i>shilei</a>
+<span class="label">Category</span>
+<a href="../../../../category/technology.html"><i class="icon-folder-open"></i>technology</a>.
+
+
+</footer><!-- /.post-info -->                </div>
+                <h3><center>AdHocMonitor系统中关于视频部分的说明</h3>
+<h5>一. 客户端相关cpp的简要说明</h5>
+<ul>
+<li><font color=''>main.cpp </font>：其中包括字符格式的设置，QSplashSreen实现Qt程序的画面启动等。 </li>
+<li>common.h : 定义程序的通用信息，即一些宏定义。</li>
+<li>abstractconf.cpp : 设置类的基类。比如虚函数 <code>loadConf()</code>,<code>saveConf()</code>...</li>
+<li>Uiappabout : 显示程序关于信息，包括软件的作者学校等信息。</li>
+<li>Uiappoutput.cpp : 整个程序运行中相关信息的显示输出类</li>
+<li>Uidatasingle.cpp : 视频连接界面。有显示网络节点，新建及放弃连接等成员函数</li>
+<li>Uivideowindow.cpp : 视频渲染底板。本程序提供了6个视频显示窗口实现<code>addWin(),delWin()</code>添加删除渲染空间。</li>
+<li>Uimainconf.cpp : 设置界面集合。<code>addConf()</code>增加相关配置界面，此程序中目前有程序，路由，视频和扩展4个配置界面。<code>confUpdate()</code>完成更新。<code>applyClicked()</code>应用配置修改。还有一些其他相关配置参数的操作。</li>
+<li>Uivideocons.cpp : 视频连接列表界面组件。实现删除，清空列表。比如双击连接的IP地址，即可删除对应此IP的视频连接。</li>
+<li>Uivideoconf.cpp : 视频配置界面组件。其中包括一些端口的设置，刷新时间、确认时间、最大连接数、是否自动重连等参数的设置。</li>
+<li>Uivideorender.cpp : 视频画面渲染类。客户端将接收到的画面数据进行渲染，最终显示在屏幕上。</li>
+<li>Uivideosingle.cpp : 独立新建视频连接。添加选择节点<code>addNode()</code>，双击处理单元 <code>nodeSelect()</code>。以及新建独立视频连接的相关实现。</li>
+<li>Uivideowin.cpp : 单视频画面窗口。其中包括了解码、渲染等相关类。</li>
+<li>decodethread.cpp : 解码线程。</li>
+<li>videocom.cpp : 视频通讯控制类。获取视频配置界面的参数，并且通过<code>QUdpSocket</code>类和远程端口建立连接，把当前客户端参数设置发送给服务器。</li>
+<li>videoconf.cpp : 继承了abstractconf类，并且实现了<code>loadConf()</code>,<code>saveConf()</code>等基类中的虚函数。</li>
+<li>videoins.cpp : 单视频连接。视频配置界面组件的参数获取（由用户自定义视频传输的参数）。</li>
+<li>videomain.cpp : 视频控制系统核心。其中包括了，各种组件的的获得，状态的变化<code>insStarted（）</code>
+ 等signal以及视频的显示新建，启动、停止等slot。</li>
+</ul>
+<h5>二. 服务器端相关cpp的简要说明</h5>
+<ul>
+<li>Common.h :  变量及结构定义。其中包括控制参数结构体，客户端连接队列，客户端信息结构体，缓冲区以及各种视频参数变量的声明定义。</li>
+<li>H264.cpp : 摄像头的初始化<code>InitCarm()</code>,RTP连接的初始化<code>InitRTPConPara()</code>,以及数据压缩
+API的调用。包括TS传输时，pmt，pat，pts，pcr等信息的写入。最后实现两种RTP/TS发送方式的<code>sendMainTS()</code>和<code>sendMainRTP()</code>。</li>
+<li>H264server.cpp : 负责服务器端的监听。其中有初始化客户端连接队列，初始化连接参数，从配置文件读写取配置参数，接受客户端连接的请求，从客户端队列中移除某个客户端等具体操作。</li>
+</ul>
+<h5>三.server端的主要运行流程</h5>
+<ol>
+<li><code>Init_Para() //初始化传输参数</code> 在h264.conf中调用<code>ReadConfigfile()</code>；</li>
+<li><code>Init_ctrl_property() //初始化控制信息</code>  即_control结构体，内有sysexit sendThread等成员；</li>
+<li><code>Init_client_queue() //初始化客户端连接队列</code> 即结构体_clientQ,内有RTPsession RTPsessionParams等成员；</li>
+<li><code>comu_server_listen() //创建socket连接，申请serverMsgBuffer[]缓冲区接收客户端发送过来的消息</code>  消息中包括消息类型如<code>SOC_CON2,SOC_RES，resolution,framerate,streamtype...</code>然后把消息参数写如h264.conf配置文件中。</li>
+</ol>
+<h6>接着需要判断刚接收到streamtype类型，如果streamtype=1，表示客户端希望TS传输方式，如果streamtype=2，则表示客户端希望RTP传输方式</h6>
+<h6>TS传输方式,主要步骤在<code>sendMainTS()</code>函数中</h6>
+<div class="highlight"><pre><span class="n">a</span><span class="p">.</span><span class="err">`</span><span class="n">dump_video_para</span><span class="err">（）</span> <span class="c1">//打印视频传输相关参数`  即从客户端接收的参数消息</span>
+<span class="n">b</span><span class="p">.</span><span class="err">`</span><span class="n">Init_Carm</span><span class="p">()</span> <span class="c1">//初始化摄像头` 其中包括了帧缓冲区的申请，内存映射等操作，最后采集图像。  </span>
+<span class="n">c</span><span class="p">.</span><span class="err">`</span><span class="n">GetCamrFramNALU</span><span class="p">()</span> <span class="c1">//得到一个NALU，这里实现时默认NALU即一个视频帧，其中还包括了MFC（Multi Fomat Codec,支持H.264的编解码）编码的三个函数，对一帧进行了压缩编码`  </span>
+<span class="n">d</span><span class="p">.</span><span class="err">`</span><span class="n">retransmit_si_info</span><span class="p">(),</span><span class="n">mpegts_insert_pcr_only</span><span class="p">()</span> <span class="c1">//插入PMT，PAT表和PCR`  </span>
+<span class="n">e</span><span class="p">.</span> <span class="err">`</span><span class="n">prepare_packet_header</span><span class="p">()</span> <span class="c1">//write PES header ,write pts dts`  </span>
+<span class="n">f</span><span class="p">.</span> <span class="err">`</span><span class="n">sendto</span><span class="p">()</span> <span class="c1">//往客户端发送数据帧`  TS_PACKET_SIZE ： 188字节</span>
+
+<span class="cp">######RTP传输方式，主要步骤在`sendMainRTP()`函数中</span>
+<span class="n">a</span><span class="p">.</span><span class="err">`</span><span class="n">dump_video_para</span><span class="p">()</span> <span class="c1">//打印视频传输相关参数`  </span>
+<span class="n">b</span><span class="p">.</span><span class="err">`</span><span class="n">Init_Carm</span><span class="p">()</span><span class="err">`</span>  
+<span class="n">c</span><span class="p">.</span><span class="err">`</span><span class="n">InitRTPConPara</span><span class="p">()</span> <span class="c1">//初始化RTP连接` 如增加请求连接的客户端地址  </span>
+<span class="n">d</span><span class="p">.</span><span class="err">`</span><span class="n">GetCamrFramNALU</span><span class="p">()</span><span class="err">`</span> <span class="err">和</span><span class="n">TS</span><span class="err">一样，通过`</span><span class="n">ioctl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="n">VIDIOC_DQBUF</span><span class="p">,</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">)</span><span class="err">`从缓冲区中取得</span>        <span class="err">一帧并进行压缩编码。</span>  
+<span class="n">e</span><span class="p">.</span> <span class="err">根帧的大小</span><span class="n">payloadsize</span><span class="err">判断是否需要分包。然后调用</span><span class="n">RTP</span><span class="err">的`</span><span class="n">sendPacket</span><span class="p">()</span><span class="err">`发送数据帧</span>
+</pre></div>
+
+
+<h5>四. client流程,主要说明DecodeThread.cpp</h5>
+<h6>判断videostreamtype的值</h6>
+<h6>videostreamtype==2</h6>
+<ol>
+<li>创建RTP会话，设置RTP参数</li>
+<li>注册所有容器格式和COEDC，包括avCodeCtx解码器上下文结构，其中包括视频 width,height等</li>
+<li><code>avcodec_open() //打开解码器</code></li>
+<li><code>session.BeginDataAccess() //开始接收数据</code></li>
+<li>查看nalutype的值，判断是否分片传输的。如果是分片传输，则需要判断起始片和结束片。</li>
+<li>接收完整NALU后调用<code>avcodec_decode_video()</code>解码</li>
+<li><code>sws_getContext()</code>进行图像转换，把YUV420P(亮度和色彩，节省带宽)转换成RGB32</li>
+</ol>
+<h6>videostreamtype==1</h6>
+<ol>
+<li>注册容器格式和CODEC <code>avcodec_init()</code></li>
+<li><code>avFormatCtx-&gt;streams[count]-&gt;codec-&gt;codec_type==CODEC_TYPE_VIDEO</code>寻找视频流</li>
+<li><code>avcodec_open()</code> 打开解码器</li>
+<li><code>av_read_frame()</code> 从视频流中读取视频数据</li>
+<li><code>avcodec_decode_video2()</code> 对视频数据进行解码</li>
+<li>进行图像转换</li>
+</ol>
+                </div><!-- /.entry-content -->
+                <div class="comments">
+                <h2>Comments !</h2>
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+                           var disqus_identifier = "pages/2014/11/06/ctreat.html";
+                           (function() {
+                                var dsq = document.createElement('script');
+                                dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = 'http://ishilei.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] ||
+                                 document.getElementsByTagName('body')[0]).appendChild(dsq);
+                          })();
+                        </script>
+                </div>
+        </article>
+</section>
+        </div><!--/span-->
+
+                <div class="span3 well sidebar-nav" id="sidebar">
+<ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
+    <li><a href="https://www.google.com/ncr"><i class="icon-external-link"></i>Google</a></li>
+    <li><a href="http://python.org/"><i class="icon-external-link"></i>Python</a></li>
+    <li><a href="http://docs.getpelican.com/"><i class="icon-external-link"></i>Pelican</a></li>
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="../../../../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+    <li><a href="https://github.com/ishilei"><i class="icon-Github-sign icon-large"></i>Github</a></li>
+    <li><a href="http://weibo.com/2787160254/profile?topnav=1&wvr=6"><i class="icon-微博-sign icon-large"></i>微博</a></li>
+    <li><a href="http://www.douban.com/people/78447170/"><i class="icon-豆瓣-sign icon-large"></i>豆瓣</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="../../../../category/technology.html">
+    <i class="icon-folder-open icon-large"></i>Technology
+</a>
+</li>
+
+<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
+<li class="tag-4">
+    <a href="../../../../tag/pelican.html">
+        <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../../../tag/github-pages.html">
+        <i class="icon-tag icon-large"></i>github pages
+    </a>
+</li>
+
+<li class="nav-header"><h4><i class="icon-search"></i>Google Search</h4></li>
+<div id="cse" style="width: 100%;">Loading</div>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('search', '1');
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+      '012191777864628038963:sjrtj5zxtec', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+</script>
+<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <address id="about">
+                Proudly powered by <a href="http://pelican.notmyidea.org/">Pelican <i class="icon-external-link"></i></a>,
+                                which takes great advantage of <a href="http://python.org">Python <i class="icon-external-link"></i></a>.
+        </address><!-- /#about -->
+
+        <p>The theme is from <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
+                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+	var pageTracker = _gat._getTracker("UA-42648273-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<script type="text/javascript">
+    var disqus_shortname = 'ishilei';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../../../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
+  </body>
+</html>
