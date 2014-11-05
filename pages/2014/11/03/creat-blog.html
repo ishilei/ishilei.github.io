@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>使用Pelican和Github Pages搭建个人博客 ---基础篇</title>
+    <title>教程：使用Pelican和Github Pages搭建个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ishilei">
@@ -91,8 +91,8 @@
                         <h1>
                                 <a href=""
                                         rel="bookmark"
-                                        title="Permalink to 使用Pelican和Github Pages搭建个人博客 ---基础篇">
-                                        使用Pelican和Github Pages搭建个人博客 ---基础篇
+                                        title="Permalink to 教程：使用Pelican和Github Pages搭建个人博客">
+                                        教程：使用Pelican和Github Pages搭建个人博客
                                 </a>
                         </h1>
                 </header>
@@ -113,8 +113,73 @@
 	<a href="../../../../tag/github-pages.html"><i class="icon-tag"></i>github pages</a>
 	<a href="../../../../tag/pelican.html"><i class="icon-tag"></i>pelican</a>
 </footer><!-- /.post-info -->                </div>
-                <h4>前言</h4>
-<p>一直以来都希望拥有自己的个人博客。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</p>
+                <h5>前言</h5>
+<p>近段时间有了想搭建个人博客的冲动，因此也看了不少利用<font color='red'>Pelican</font>和<font color='red'>Github Pages</font>搭建博客的教程，但是完全按照教程去做，总会出现一些教程中没有提到的问题。因此，把自己成功搭建的过程也分享一下。</p>
+<h5>基础</h5>
+<p>1.搭建博客之前最好掌握git的基本操作，这样会让你在搭建的时候少很多困惑，比如一些基本的git命令，知道它的作用会对搭建博客以及以后博客的更新起到很大的作用。在此强烈推荐progit，不需要看完整本书，只需要了解其基本的操作命令。电子版链接<a href="http://git-scm.com/book/zh/v1">progit</a></p>
+<p>2.pelican和github可自行搜索相关资料进行了解。博客写作编辑器markdown自行学习1小时便能搞定。  </p>
+<h5>安装环境</h5>
+<p>ubuntu 14.04<br />
+首先ubuntu就是利用git进行版本控制的，在ubuntu环境搭建基于github的博客系统个人感觉更加简单，更容易上手，用起来也更加方便，当然这得有linux环境操作基础。</p>
+<h5>安装Pelican</h5>
+<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span>
+</pre></div>
+
+
+<p>系统一般没有预装pip，因此需要先把pip安装了<br />
+<code>apt-get install pip</code>  </p>
+<h5>安装markdown</h5>
+<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">Markdown</span>
+</pre></div>
+
+
+<h5>创建blog目录</h5>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="n">blog</span>
+<span class="n">cd</span> <span class="n">blog</span>
+</pre></div>
+
+
+<h5>在blog目录下运行下面的命令</h5>
+<div class="highlight"><pre><span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
+</pre></div>
+
+
+<p>运行此命令后会出现一系列提示，可一直按enter键默认设置，以后可以在pelicanconf.py文件中进行修改。然后会生成一系列文件和目录<br />
+    content目录 存放输入的源文件，以后博客的.md源文件即存放在此目录<br />
+    output 目录 存放生成的的输出文件<br />
+    develop_server.sh 方便开启测试服务器<br />
+    Makefile  方便管理博客的Makefile<br />
+    pelicanconf.py 主配置文件<br />
+    publishconf.py 发布时使用的配置文件</p>
+<h5>写一篇简单的文章</h5>
+<p>首先进入content目录，用markdown生成一个.md的文件,其中文件的内容为:<br />
+    Data : 2014-11-3<br />
+    Title : test<br />
+    Tags : technology<br />
+    Category : technology<br />
+    Author: anyone</p>
+<h5>生成html</h5>
+<div class="highlight"><pre><span class="n">make</span> <span class="n">publish</span>
+</pre></div>
+
+
+<h5>github仓库的准备</h5>
+<p>注册github，然后在Repositories下新建一个username.github.io的仓库，username是你github的用户名。</p>
+<h5>在github上创建GitHub Pages</h5>
+<p>进入blog目录下的output目录：<br />
+<code>git init</code><br />
+<code>git add .</code><br />
+<code>git commit -m "first commit"</code><br />
+<code>git remote add origin https://github.com/X/X.github.io.git</code><br />
+<code>git push   origin master</code><br />
+倒数第二条命令中的X即github的用户名。如果你已经看过progit的话，就知道这些命令具体做了什么。</p>
+<h5>域名的绑定</h5>
+<ol>
+<li>首先买个域名。国内国外都有许多卖域名的网站。本人是在Godaddy上买的，支持支付宝支付。</li>
+<li>将域名与GitHub Pages进行空间绑定。即在username.github.io的根目录下新建一个CNAME的文本文件，里面写入你要绑定的域名。比如我的CNAME文件中内容就是：www.ishilei.com</li>
+<li>DNS的设置。推荐使用DNSpod,免费。</li>
+</ol>
+<h6>这部分内容的在这篇链接<a href="http://blog.csdn.net/poem_of_sunshine/article/details/29369785">文章</a>中讲的非常详细,虽然它是用hexo进行搭建，但是域名这一块是完全相同的。</h6>
                 </div><!-- /.entry-content -->
                 <div class="comments">
                 <h2>Comments !</h2>
@@ -156,13 +221,13 @@
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../../../../tag/github-pages.html">
-        <i class="icon-tag icon-large"></i>github pages
+    <a href="../../../../tag/pelican.html">
+        <i class="icon-tag icon-large"></i>pelican
     </a>
 </li>
 <li class="tag-4">
-    <a href="../../../../tag/pelican.html">
-        <i class="icon-tag icon-large"></i>pelican
+    <a href="../../../../tag/github-pages.html">
+        <i class="icon-tag icon-large"></i>github pages
     </a>
 </li>
 
