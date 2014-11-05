@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>使用Pelican和Github Pages搭建个人博客</title>
+    <title>RTP相关笔记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ishilei">
@@ -65,12 +65,12 @@
           <div class="nav-collapse">
             <ul class="nav">
                           <li class="divider-vertical"></li>
-                  <li class="active">
+                  <li >
                     <a href="../../../../category/jiao-cheng.html">
 						<i class="icon-folder-open icon-large"></i>教程
 					</a>
                   </li>
-                  <li >
+                  <li class="active">
                     <a href="../../../../category/shi-pin-chuan-shu.html">
 						<i class="icon-folder-open icon-large"></i>视频传输
 					</a>
@@ -96,8 +96,8 @@
                         <h1>
                                 <a href=""
                                         rel="bookmark"
-                                        title="Permalink to 使用Pelican和Github Pages搭建个人博客">
-                                        使用Pelican和Github Pages搭建个人博客
+                                        title="Permalink to RTP相关笔记">
+                                        RTP相关笔记
                                 </a>
                         </h1>
                 </header>
@@ -105,129 +105,68 @@
                 <div class="well">
 <footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2014-11-03T19:44:00">
-        <i class="icon-calendar"></i>2014-11-03
+<abbr class="published" title="2014-11-05T11:10:00">
+        <i class="icon-calendar"></i>2014-11-05
 </abbr>
 <span class="label">By</span>
 <a href="../../../../author/shilei.html"><i class="icon-user"></i>shilei</a>
 <span class="label">Category</span>
-<a href="../../../../category/jiao-cheng.html"><i class="icon-folder-open"></i>教程</a>.
+<a href="../../../../category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
 
 
 <span class="label">Tags</span>
-	<a href="../../../../tag/github.html"><i class="icon-tag"></i>github</a>
+	<a href="../../../../tag/project.html"><i class="icon-tag"></i>project</a>
 </footer><!-- /.post-info -->                </div>
-                <h5>前言</h5>
-<p>近段时间有了想搭建个人博客的冲动，因此也看了不少利用<font color='red'>Pelican</font>和<font color='red'>Github Pages</font>搭建博客的教程，但是完全按照教程去做，总会出现一些教程中没有提到的问题。因此，把自己成功搭建的过程也分享一下。</p>
-<h5>基础</h5>
-<p>1.搭建博客之前最好掌握git的基本操作，这样会让你在搭建的时候少很多困惑，比如一些基本的git命令，知道它的作用会对搭建博客以及以后博客的更新起到很大的作用。在此强烈推荐progit，不需要看完整本书，只需要了解其基本的操作命令。电子版链接<a href="http://git-scm.com/book/zh/v1">progit</a></p>
-<p>2.pelican和github可自行搜索相关资料进行了解。博客写作编辑器markdown自行学习1小时便能搞定。  </p>
-<h5>安装环境</h5>
-<p>ubuntu 14.04<br />
-首先linux内核的版本就是利用git进行版本控制的，在ubuntu环境搭建基于github的博客系统个人感觉更加简单，更容易上手，用起来也更加方便，当然这得有linux环境操作基础。</p>
-<h5>安装Pelican</h5>
-<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span>
-</pre></div>
-
-
-<p>系统一般没有预装pip，因此需要先把pip安装了<br />
-<code>apt-get install pip</code>  </p>
-<h5>安装markdown</h5>
-<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">Markdown</span>
-</pre></div>
-
-
-<h5>创建blog目录</h5>
-<div class="highlight"><pre><span class="n">mkdir</span> <span class="n">blog</span>
-<span class="n">cd</span> <span class="n">blog</span>
-</pre></div>
-
-
-<h5>在blog目录下运行下面的命令</h5>
-<div class="highlight"><pre><span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
-</pre></div>
-
-
-<p>运行此命令后会出现一系列提示，可一直按enter键默认设置，以后可以在pelicanconf.py文件中进行修改。然后会生成一系列文件和目录<br />
-    content目录 存放输入的源文件，以后博客的.md源文件即存放在此目录<br />
-    output 目录 存放生成的的输出文件<br />
-    develop_server.sh 方便开启测试服务器<br />
-    Makefile  方便管理博客的Makefile<br />
-    pelicanconf.py 主配置文件<br />
-    publishconf.py 发布时使用的配置文件</p>
-<h5>写一篇简单的文章</h5>
-<p>首先进入content目录，用markdown生成一个.md的文件,其中文件的内容为:<br />
-    Data : 2014-11-3<br />
-    Title : test<br />
-    Tags : technology<br />
-    Category : technology<br />
-    Author: anyone</p>
-<h5>生成html</h5>
-<div class="highlight"><pre><span class="n">make</span> <span class="n">publish</span>
-</pre></div>
-
-
-<h5>github仓库的准备</h5>
-<p>注册github，然后在Repositories下新建一个username.github.io的仓库，username是你github的用户名。</p>
-<h5>在github上创建GitHub Pages</h5>
-<p>进入blog目录下的output目录：<br />
-<code>git init</code><br />
-<code>git add .</code><br />
-<code>git commit -m "first commit"</code><br />
-<code>git remote add origin https://github.com/X/X.github.io.git</code><br />
-<code>git push   origin master</code><br />
-倒数第二条命令中的X即github的用户名。如果你已经看过progit的话，就知道这些命令具体做了什么。</p>
-<h5>pelican主题</h5>
-<p>选择自己喜欢的主题，比如要选择gum主题</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/getpelican/pelican-themes.git</span>
-<span class="n">cd</span> <span class="n">pelican</span><span class="o">-</span><span class="n">themes</span>
-<span class="n">pelican</span><span class="o">-</span><span class="n">themes</span> <span class="o">-</span><span class="n">i</span> <span class="n">gum</span>
-<span class="n">cd</span> <span class="n">blog</span>
-<span class="n">vim</span> <span class="n">pelicanconf</span><span class="p">.</span><span class="n">py</span>
-</pre></div>
-
-
-<p>在pelicanconf中修改：  </p>
-<div class="highlight"><pre><span class="n">THEME</span><span class="o">=</span><span class="err">&#39;</span><span class="n">gum</span><span class="err">&#39;</span>
-</pre></div>
-
-
-<h5>评论系统的添加</h5>
-<p>可以去 <a href="https://disqus.com/admin/signup/">Disqus</a>申请账号，获得你的shortname。<br />
-然后在pelicanconf.py中修改：</p>
-<div class="highlight"><pre><span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="n">shortname</span>
-</pre></div>
-
-
-<h5>域名的绑定</h5>
-<ol>
-<li>首先买个域名。国内国外都有许多卖域名的网站。本人是在Godaddy上买的，支持支付宝支付。</li>
-<li>将域名与GitHub Pages进行空间绑定。即在username.github.io的根目录下新建一个CNAME的文本文件，里面写入你要绑定的域名。比如我的CNAME文件中内容就是：www.ishilei.com</li>
-<li>DNS的设置。推荐使用DNSpod,免费。<br />
-<strong>这部分内容的在这篇链接<a href="http://blog.csdn.net/poem_of_sunshine/article/details/29369785">文章</a>中讲的非常详细,虽然它是用hexo进行搭建，但是域名这一块是完全相同的。</strong></li>
-</ol>
-<h5>关于博客的更新</h5>
-<p>我看过的很多教程都没有这部分内容，因此使我这个小白花了不少时间去搞定这部分的问题。<br />
-这里的问题是每次更新博客时，要执行<code>make publish</code>，而这个命令都会导致output目录下的.git目录文件被覆盖。这样就需要重新在output下执行<code>git init</code>命令。执行后续上传命令的时候还会发生各种问题，比如要求远端仓库与本地仓库合并等。<br />
-解决方法是修改blog目录下的Makefile文件中publish这一行改为：  </p>
-<div class="highlight"><pre><span class="nl">publish:</span>
-<span class="err">$</span><span class="p">(</span><span class="n">PELICAN</span><span class="p">)</span> <span class="err">$</span><span class="p">(</span><span class="n">INPUTDIR</span><span class="p">)</span> <span class="o">-</span><span class="n">o</span> <span class="err">$</span><span class="p">(</span><span class="n">OUTPUTDIR</span><span class="p">)</span> <span class="o">-</span><span class="n">s</span> <span class="err">$</span><span class="p">(</span><span class="n">CONFFILE</span><span class="p">)</span> <span class="err">$</span><span class="p">(</span><span class="n">PELICANOPTS</span><span class="p">)</span>
-</pre></div>
-
-
-<p>以后博客的更新，执行<code>make publish</code>后，可以运行<code>./develop_server.sh start</code><br />
-这样可以现在本地127.0.0.1:8000查看博客的效果<br />
-确认博客已经修改完成则运行下面命令进行上传  </p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;commit message&quot;</span>
-<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span>
-</pre></div>
+                <h4>为什么采用RTP而不直接利用UDP发送数据</h4>
+<p>UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。</p>
+<h4>H.264 RTP 负载格式</h4>
+<h6><font color='green'>NALU</font></h6>
+<p>NALU头由一个字节组成<br />
++-------------------------------+<br />
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |<br />
+| F | NRI   | 　　TYpe 　|　　</p>
+<hr />
+<p>F : 在Ｈ.264中规定必须置为1<br />
+NRI : 知道NALU重要性，一般情况不关心<br />
+Type：指示这个NALU单元的类型。<br />
+NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的值进行指定。<br />
+1. 单一NAL单元模式，即一个RTP包仅由一个完整的NALU组成。
+2. 组合封包模式，即可能由多个NAL单元组成一个RTP包。
+3. 分片封包模式，用与把 一个NALU单元封装成多个RTP包。</p>
+<h6>在我的使用中，只遇到了第一种和第三种类型</h6>
+<h6><font color='green'>单一NALU发送</font></h6>
+<p>NALU长度小于MTU大小的包，一般采用这种发送方式。<br />
+<strong>NALU=StartCode + NALU Header + NALU Payload</strong><br />
+StartCode : 用于标志一个NALU单元的开始，必须是“00 00 00 01”或“00 00 01”<br />
+NALU Header ： 一个字节，NALU头<br />
+NALU Payload : NALU负载内容  </p>
+<h6>RTP打包时，去除StartCode,把剩下的数据封包成RTP包即可</h6>
+<p>例如一个NALU数据是下面所示：<br />
+【00 00 00 01 67 42 78 A0 E4 65…… 】<br />
+封装成RTP包，即如下所示：<br />
+【RTPHeader | 67 42 78 A0 E4 65 ……】  </p>
+<h6>客户端是播放器，如VLC，则需要将StartCode去除，而如果使用ffmpeg在客户端解码，则发送前不需要去除StartCode。</h6>
+<h6><font color='green'>FU-A的分片格式</font></h6>
+<p>NALU长度大于MTU的包，需要分片发送。12字节的RTP Header后面跟着就是FU-A分片。<br />
+FU-A分片时FU indicator中type字段等于28。  </p>
+<h6>注：很多资料中既有NALU indicator和NALU Header两种写法，令人困惑。在单一NALU中一般写成NALU Header，而在FU-A分片中一般写成NALU indicator。你可以认为在FU-A分片中，NALU header被拆分成了FU indicator 和Fu header。</h6>
+<p>采用FU-A分片，在NALU indicator 后面还有一个字节的FU header<br />
+FU header 的格式如下：<br />
++-------------------------------+<br />
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |<br />
+| S | E | R |  　Type　　|<br />
++-------------------------------+<br />
+S bit： 表示分片NAL的开始，当它为1时，E不能为1<br />
+E bit ： 表示分片NAL的结束，当它为1是，S不能为1<br />
+R bit：保留位 
+Type ： 就是NALU indicator中的Type<br />
+<strong>同一个NALU分包后的FU indicator是完全一致的，FU header只有S以及E位有区别，分别标记开始和结束，它们RTP分包的序列号应该是依次递增的，并且它们的时间戳必须一致。</strong></p>
                 </div><!-- /.entry-content -->
                 <div class="comments">
                 <h2>Comments !</h2>
                         <div id="disqus_thread"></div>
                         <script type="text/javascript">
-                           var disqus_identifier = "pages/2014/11/03/creat-blog.html";
+                           var disqus_identifier = "pages/2014/11/05/ctreat3.html";
                            (function() {
                                 var dsq = document.createElement('script');
                                 dsq.type = 'text/javascript'; dsq.async = true;

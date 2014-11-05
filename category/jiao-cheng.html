@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>地球太冷</title>
+    <title>地球太冷 - 教程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ishilei">
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -30,10 +30,10 @@
         font-size: 6pt;
      }
     </style>
-    <link href="./theme/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link href="./theme/css/font-awesome.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="../theme/css/font-awesome.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments.css" rel="stylesheet">
+    <link href="../theme/css/pygments.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -41,13 +41,13 @@
     <![endif]-->
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="./theme/images/favicon.ico">
-    <link rel="apple-touch-icon" href="./theme/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./theme/images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./theme/images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="../theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../theme/images/apple-touch-icon-114x114.png">
 
-    <link href="./" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
-    <link href="./feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
+    <link href="../" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
+    <link href="../feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
 
   </head>
 
@@ -61,23 +61,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="./index.html">地球太冷 </a>
+          <a class="brand" href="../index.html">地球太冷 </a>
           <div class="nav-collapse">
             <ul class="nav">
                           <li class="divider-vertical"></li>
-                  <li >
-                    <a href="./category/jiao-cheng.html">
+                  <li class="active">
+                    <a href="../category/jiao-cheng.html">
 						<i class="icon-folder-open icon-large"></i>教程
 					</a>
                   </li>
                   <li >
-                    <a href="./category/shi-pin-chuan-shu.html">
+                    <a href="../category/shi-pin-chuan-shu.html">
 						<i class="icon-folder-open icon-large"></i>视频传输
 					</a>
                   </li>
 
                           <ul class="nav pull-right">
-                                <li><a href="./archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                                <li><a href="../archives.html"><i class="icon-th-list"></i>Archives</a></li>
                           </ul>
 
             </ul>
@@ -90,20 +90,49 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
-<section id="content">
-<h1>Archives for 地球太冷</h1>
+        <div class="article">
+                <h1><a href="../pages/2014/11/03/creat-blog.html">使用Pelican和Github Pages搭建个人博客</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-11-03T19:44:00">
+        <i class="icon-calendar"></i>2014-11-03
+</abbr>
+<span class="label">By</span>
+<a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
+<span class="label">Category</span>
+<a href="../category/jiao-cheng.html"><i class="icon-folder-open"></i>教程</a>.
 
-<dl>
-	<dt>2014-11-05</dt>
-	<dd><a href='pages/2014/11/05/ctreat4.html'>H.264的零散笔记整理</a></dd>
-	<dt>2014-11-05</dt>
-	<dd><a href='pages/2014/11/05/ctreat3.html'>RTP相关笔记</a></dd>
-	<dt>2014-11-04</dt>
-	<dd><a href='pages/2014/11/04/ctreat.html'>AdHocMonitor系统中关于视频部分的说明</a></dd>
-	<dt>2014-11-03</dt>
-	<dd><a href='pages/2014/11/03/creat-blog.html'>使用Pelican和Github Pages搭建个人博客</a></dd>
-</dl>
-</section>
+
+<span class="label">Tags</span>
+	<a href="../tag/github.html"><i class="icon-tag"></i>github</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h5>前言</h5>
+<p>近段时间有了想搭建个人博客的冲动，因此也看了不少利用<font color='red'>Pelican</font>和<font color='red'>Github Pages</font>搭建博客的教程，但是完全按照教程去做，总会出现一些教程中没有提到的问题。因此，把自己成功搭建的过程也分享一下。</p>
+<h5>基础</h5>
+<p>1.搭建博客之前最好掌握git的基本操作，这样会让你在搭建的时候少很多困惑，比如一些基本的git命令，知道它的作用会对搭建博客以及以后博客的更新起到很大的作用。在此强烈推荐progit，不需要看完整本书，只需要了解其基本的操作命令。电子版链接<a href="http://git-scm.com/book/zh/v1">progit</a></p>
+<p>2.pelican和github可自行搜索相关资料进行了解。博客写作编辑器markdown自行学习1小时便能搞定。  </p>
+<h5>安装环境</h5>
+<p>ubuntu 14.04<br />
+首先linux内核的版本就是利用git进行版本控制的，在ubuntu环境搭建基于github的博客系统个人感觉更加简单，更容易上手，用起来也更加方便，当然这得有linux环境操作基础。</p>
+<h5>安装Pelican</h5>
+<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span>
+</pre></div>
+
+
+<p>系统一般没有预装pip，因此需要先把pip安装了<br />
+<code>apt-get install pip</code>  </p>
+<h5>安装markdown</h5>
+<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">Markdown</span>
+</pre></div>
+
+
+<h5>创建blog目录</h5>
+<div class="highlight"><pre><span class="n">mkdir ...</span></pre></div>
+                        <a class="btn primary xsmall" href="../pages/2014/11/03/creat-blog.html">more ...</a>
+                </div>
+        </div>
+        <hr />
+
         </div><!--/span-->
 
                 <div class="span3 well sidebar-nav" id="sidebar">
@@ -113,32 +142,32 @@
     <li><a href="http://python.org/"><i class="icon-external-link"></i>Python</a></li>
     <li><a href="http://docs.getpelican.com/"><i class="icon-external-link"></i>Pelican</a></li>
 <li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="./" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
-<li><a href="./feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+<li><a href="../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="../feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
     <li><a href="https://github.com/ishilei"><i class="icon-Github-sign icon-large"></i>Github</a></li>
     <li><a href="http://weibo.com/2787160254/profile?topnav=1&wvr=6"><i class="icon-微博-sign icon-large"></i>微博</a></li>
     <li><a href="http://www.douban.com/people/78447170/"><i class="icon-豆瓣-sign icon-large"></i>豆瓣</a></li>
 
 <li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
 <li>
-<a href="./category/jiao-cheng.html">
+<a href="../category/jiao-cheng.html">
     <i class="icon-folder-open icon-large"></i>教程
 </a>
 </li>
 <li>
-<a href="./category/shi-pin-chuan-shu.html">
+<a href="../category/shi-pin-chuan-shu.html">
     <i class="icon-folder-open icon-large"></i>视频传输
 </a>
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-1">
-    <a href="./tag/project.html">
+    <a href="../tag/project.html">
         <i class="icon-tag icon-large"></i>project
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/github.html">
+    <a href="../tag/github.html">
         <i class="icon-tag icon-large"></i>github
     </a>
 </li>
@@ -197,7 +226,7 @@ pageTracker._trackPageview();
 
     <!-- Le javascript -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./theme/js/jquery-1.7.2.min.js"></script>
-    <script src="./theme/js/bootstrap.min.js"></script>
+    <script src="../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../theme/js/bootstrap.min.js"></script>
   </body>
 </html>

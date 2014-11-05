@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>地球太冷</title><link href="http://www.ishilei.com/" rel="alternate"></link><link href="http://www.ishilei.com/feeds/project.atom.xml" rel="self"></link><id>http://www.ishilei.com/</id><updated>2014-11-05T15:10:00+08:00</updated><entry><title>H.264的零散笔记整理</title><link href="http://www.ishilei.com/pages/2014/11/05/ctreat4.html" rel="alternate"></link><updated>2014-11-05T15:10:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-11-05:pages/2014/11/05/ctreat4.html</id><summary type="html">&lt;h4&gt;H264与ffmpeg&lt;/h4&gt;
+&lt;p&gt;简单地说，H.264是一种编码协议，而ffmpeg则是含有支持H.264编码程序的程序包。H.264压缩比非常高，所以是目前音视频压缩的主流算法。现在已经有了H.265压缩算法，理论上在相同的带宽下可以传输两倍的数据量，并且已经有了不少成熟的产品开始投入使用。&lt;/p&gt;
+&lt;h4&gt;H.264中帧，场，宏块等数据单位&lt;/h4&gt;
+&lt;p&gt;一帧，即一副静止的图像，可分为两场（奇数场和偶数场）。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;或者说一个视频图像编码后的数据叫做一帧（frame）&lt;br /&gt;
+一帧有一个片或者多个片（slice）组成&lt;br /&gt;
+一个片由一个或多个宏块（MB）组成&lt;br /&gt;
+一个宏块由16×16的YUV数据组成&lt;/p&gt;
+&lt;h6&gt;视频编码算法以宏块为单位，逐个编码，组成连续视频流&lt;/h6&gt;
+&lt;p&gt;帧又可以分为：I帧，P帧，B帧&lt;br /&gt;
+I帧： 也叫做关键帧，包含完整的画面信息&lt;br /&gt;
+P帧：前向预测帧，只存储与前一个已解压帧的差值&lt;br /&gt;
+B帧：双向预测帧，同时依赖前一个帧和后一个帧的编解码&lt;/p&gt;
+&lt;h6&gt;VCL和NAL相关概念&lt;/h6&gt;
+&lt;p&gt;H.264的算法在概念上可以分为两层：VCL（视频编码层）负责视频内容的表示，NAL（网络提取层）负责以网络所要求的恰当的方式对数据进行打包和传送。&lt;br /&gt;
+NAL以NALU(NAL Unit)为单位来支持编码数据在基于分组交换技术网络中传输。&lt;br /&gt;
+VCL层，最原始的编码数据（SODB）经过编码，在后加若干结尾比特（字节对齐）——&amp;gt;&amp;gt;&amp;gt;RBSP&lt;br /&gt;
+&lt;strong&gt;NALU===NAL(NAL头信息)+RBSP（原始字节序列载荷）&lt;/strong&gt;&lt;br /&gt;
+注意：并不是一帧对应于一个NALU，一个slice封装成一个nal，一帧可以有多个slice，所以一帧有多个nal &lt;/p&gt;
+&lt;h4&gt;视频传输过程中的参数&lt;/h4&gt;
+&lt;p&gt;GOP：根据定义GOP表示两个I帧之间帧的数量，默认情况下 帧率和GOP长度相同。
+比如帧序列 IPPPPI 的GOP长度即为5。&lt;br /&gt;
+在保持相同的帧速率下，可以提高GOP的值实现降低码流(更多中小P帧和较少的大尺寸I帧)&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;码流，也叫码率，或者比特率。视频中的码流指由模拟信号转换为数字信号的采样率。&lt;br /&gt;
+码流越大，需要占用的带宽也越大。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;帧率，指每秒钟刷新图片的帧数。&lt;/p&gt;
+&lt;h6&gt;帧率：影响视频的连贯性　　　　 码率：影响视频的图像质量&lt;/h6&gt;</summary></entry></feed>

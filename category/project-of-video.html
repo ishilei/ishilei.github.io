@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>地球太冷</title>
+    <title>地球太冷 - project of video</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ishilei">
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -30,10 +30,10 @@
         font-size: 6pt;
      }
     </style>
-    <link href="./theme/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link href="./theme/css/font-awesome.css" rel="stylesheet">
+    <link href="../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="../theme/css/font-awesome.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments.css" rel="stylesheet">
+    <link href="../theme/css/pygments.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -41,13 +41,13 @@
     <![endif]-->
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="./theme/images/favicon.ico">
-    <link rel="apple-touch-icon" href="./theme/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./theme/images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./theme/images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="../theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../theme/images/apple-touch-icon-114x114.png">
 
-    <link href="./" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
-    <link href="./feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
+    <link href="../" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
+    <link href="../feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
 
   </head>
 
@@ -61,23 +61,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="./index.html">地球太冷 </a>
+          <a class="brand" href="../index.html">地球太冷 </a>
           <div class="nav-collapse">
             <ul class="nav">
                           <li class="divider-vertical"></li>
                   <li >
-                    <a href="./category/jiao-cheng.html">
+                    <a href="../category/jiao-cheng.html">
 						<i class="icon-folder-open icon-large"></i>教程
 					</a>
                   </li>
-                  <li >
-                    <a href="./category/shi-pin-chuan-shu.html">
-						<i class="icon-folder-open icon-large"></i>视频传输
+                  <li class="active">
+                    <a href="../category/project-of-video.html">
+						<i class="icon-folder-open icon-large"></i>project of video
 					</a>
                   </li>
 
                           <ul class="nav pull-right">
-                                <li><a href="./archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                                <li><a href="../archives.html"><i class="icon-th-list"></i>Archives</a></li>
                           </ul>
 
             </ul>
@@ -90,20 +90,37 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
-<section id="content">
-<h1>Archives for 地球太冷</h1>
+        <div class="article">
+                <h1><a href="../pages/2014/11/06/ctreat.html">AdHocMonitor系统中关于视频部分的说明</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-11-06T20:10:00">
+        <i class="icon-calendar"></i>2014-11-06
+</abbr>
+<span class="label">By</span>
+<a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
+<span class="label">Category</span>
+<a href="../category/project-of-video.html"><i class="icon-folder-open"></i>project of video</a>.
 
-<dl>
-	<dt>2014-11-05</dt>
-	<dd><a href='pages/2014/11/05/ctreat4.html'>H.264的零散笔记整理</a></dd>
-	<dt>2014-11-05</dt>
-	<dd><a href='pages/2014/11/05/ctreat3.html'>RTP相关笔记</a></dd>
-	<dt>2014-11-04</dt>
-	<dd><a href='pages/2014/11/04/ctreat.html'>AdHocMonitor系统中关于视频部分的说明</a></dd>
-	<dt>2014-11-03</dt>
-	<dd><a href='pages/2014/11/03/creat-blog.html'>使用Pelican和Github Pages搭建个人博客</a></dd>
-</dl>
-</section>
+
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h3><center>AdHocMonitor系统中关于视频部分的说明</h3>
+<h5>一. 客户端相关cpp的简要说明</h5>
+<ul>
+<li><font color=''>main.cpp </font>：其中包括字符格式的设置，QSplashSreen实现Qt程序的画面启动等。 </li>
+<li>common.h : 定义程序的通用信息，即一些宏定义。</li>
+<li>abstractconf.cpp : 设置类的基类。比如虚函数 <code>loadConf()</code>,<code>saveConf()</code>...</li>
+<li>Uiappabout : 显示程序关于信息，包括软件的作者学校等信息。</li>
+<li>Uiappoutput.cpp : 整个程序运行中相关信息的显示输出类</li>
+<li>Uidatasingle.cpp : 视频连接界面。有显示网络节点，新建及放弃连接等成员函数</li>
+<li>Uivideowindow.cpp : 视频渲染底板。本程序提供了6个视频显示窗口实现<code>addWin(),delWin()</code>添加删除渲染空间。</li>
+<li>Uimainconf.cpp : 设置界面集合。<code>addConf()</code>增加相关配置界面，此程序中目前有程序，路由，视频和扩展4个配置界面。<code>confUpdate()</code>完成更新。<code>applyClicked()</code>应用配置修改。还有一些其他相关配置参数的操作。</li>
+<li>Uivideocons.cpp ...</li></ul>
+                        <a class="btn primary xsmall" href="../pages/2014/11/06/ctreat.html">more ...</a>
+                </div>
+        </div>
+        <hr />
+
         </div><!--/span-->
 
                 <div class="span3 well sidebar-nav" id="sidebar">
@@ -113,33 +130,33 @@
     <li><a href="http://python.org/"><i class="icon-external-link"></i>Python</a></li>
     <li><a href="http://docs.getpelican.com/"><i class="icon-external-link"></i>Pelican</a></li>
 <li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="./" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
-<li><a href="./feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+<li><a href="../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="../feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
     <li><a href="https://github.com/ishilei"><i class="icon-Github-sign icon-large"></i>Github</a></li>
     <li><a href="http://weibo.com/2787160254/profile?topnav=1&wvr=6"><i class="icon-微博-sign icon-large"></i>微博</a></li>
     <li><a href="http://www.douban.com/people/78447170/"><i class="icon-豆瓣-sign icon-large"></i>豆瓣</a></li>
 
 <li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
 <li>
-<a href="./category/jiao-cheng.html">
+<a href="../category/jiao-cheng.html">
     <i class="icon-folder-open icon-large"></i>教程
 </a>
 </li>
 <li>
-<a href="./category/shi-pin-chuan-shu.html">
-    <i class="icon-folder-open icon-large"></i>视频传输
+<a href="../category/project-of-video.html">
+    <i class="icon-folder-open icon-large"></i>project of video
 </a>
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
-<li class="tag-1">
-    <a href="./tag/project.html">
-        <i class="icon-tag icon-large"></i>project
+<li class="tag-4">
+    <a href="../tag/github-pages.html">
+        <i class="icon-tag icon-large"></i>github pages
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/github.html">
-        <i class="icon-tag icon-large"></i>github
+    <a href="../tag/pelican.html">
+        <i class="icon-tag icon-large"></i>pelican
     </a>
 </li>
 
@@ -197,7 +214,7 @@ pageTracker._trackPageview();
 
     <!-- Le javascript -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./theme/js/jquery-1.7.2.min.js"></script>
-    <script src="./theme/js/bootstrap.min.js"></script>
+    <script src="../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../theme/js/bootstrap.min.js"></script>
   </body>
 </html>

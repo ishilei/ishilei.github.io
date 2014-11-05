@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>地球太冷 - github pages</title>
+    <title>ffmpeg的学习笔记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ishilei">
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css" />
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -30,10 +30,10 @@
         font-size: 6pt;
      }
     </style>
-    <link href="../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link href="../theme/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="../../../../theme/css/font-awesome.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments.css" rel="stylesheet">
+    <link href="../../../../theme/css/pygments.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -41,13 +41,13 @@
     <![endif]-->
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../theme/images/favicon.ico">
-    <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../theme/images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../theme/images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="../../../../theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="../../../../theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../../../theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../../../theme/images/apple-touch-icon-114x114.png">
 
-    <link href="../" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
-    <link href="../feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
+    <link href="../../../../" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
+    <link href="../../../../feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
 
   </head>
 
@@ -61,23 +61,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="../index.html">地球太冷 </a>
+          <a class="brand" href="../../../../index.html">地球太冷 </a>
           <div class="nav-collapse">
             <ul class="nav">
                           <li class="divider-vertical"></li>
                   <li >
-                    <a href="../category/jiao-cheng.html">
+                    <a href="../../../../category/jiao-cheng.html">
 						<i class="icon-folder-open icon-large"></i>教程
 					</a>
                   </li>
-                  <li >
-                    <a href="../category/shi-pin-chuan-shu.html">
+                  <li class="active">
+                    <a href="../../../../category/shi-pin-chuan-shu.html">
 						<i class="icon-folder-open icon-large"></i>视频传输
 					</a>
                   </li>
 
                           <ul class="nav pull-right">
-                                <li><a href="../archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                                <li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
                           </ul>
 
             </ul>
@@ -90,50 +90,79 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
-        <div class="article">
-                <h1><a href="../pages/2014/11/03/creat-blog.html">使用Pelican和Github Pages搭建个人博客</a></h1>
-                <div class="well small"><footer class="post-info">
+<section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to ffmpeg的学习笔记">
+                                        ffmpeg的学习笔记
+                                </a>
+                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+<footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2014-11-03T19:44:00">
-        <i class="icon-calendar"></i>2014-11-03
+<abbr class="published" title="2014-11-05T16:10:00">
+        <i class="icon-calendar"></i>2014-11-05
 </abbr>
 <span class="label">By</span>
-<a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
+<a href="../../../../author/shilei.html"><i class="icon-user"></i>shilei</a>
 <span class="label">Category</span>
-<a href="../category/jiao-cheng.html"><i class="icon-folder-open"></i>教程</a>.
+<a href="../../../../category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
 
 
 <span class="label">Tags</span>
-	<a href="../tag/github-pages.html"><i class="icon-tag"></i>github pages</a>
-	<a href="../tag/pelican.html"><i class="icon-tag"></i>pelican</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h5>前言</h5>
-<p>近段时间有了想搭建个人博客的冲动，因此也看了不少利用<font color='red'>Pelican</font>和<font color='red'>Github Pages</font>搭建博客的教程，但是完全按照教程去做，总会出现一些教程中没有提到的问题。因此，把自己成功搭建的过程也分享一下。</p>
-<h5>基础</h5>
-<p>1.搭建博客之前最好掌握git的基本操作，这样会让你在搭建的时候少很多困惑，比如一些基本的git命令，知道它的作用会对搭建博客以及以后博客的更新起到很大的作用。在此强烈推荐progit，不需要看完整本书，只需要了解其基本的操作命令。电子版链接<a href="http://git-scm.com/book/zh/v1">progit</a></p>
-<p>2.pelican和github可自行搜索相关资料进行了解。博客写作编辑器markdown自行学习1小时便能搞定。  </p>
-<h5>安装环境</h5>
-<p>ubuntu 14.04<br />
-首先linux内核的版本就是利用git进行版本控制的，在ubuntu环境搭建基于github的博客系统个人感觉更加简单，更容易上手，用起来也更加方便，当然这得有linux环境操作基础。</p>
-<h5>安装Pelican</h5>
-<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span>
-</pre></div>
-
-
-<p>系统一般没有预装pip，因此需要先把pip安装了<br />
-<code>apt-get install pip</code>  </p>
-<h5>安装markdown</h5>
-<div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">Markdown</span>
-</pre></div>
-
-
-<h5>创建blog目录</h5>
-<div class="highlight"><pre><span class="n">mkdir ...</span></pre></div>
-                        <a class="btn primary xsmall" href="../pages/2014/11/03/creat-blog.html">more ...</a>
+	<a href="../../../../tag/project.html"><i class="icon-tag"></i>project</a>
+</footer><!-- /.post-info -->                </div>
+                <h4>ffmpeg简介</h4>
+<p>“FFmpeg是一个开源免费跨平台的视频和音频流方案，属于自由软件”。其中包含了<strong>libavcodec</strong>(可用于全部FFmpeg的音频/视频编解码库)，<strong>libavformat</strong>(包含了demuxers和muxer库)以及其他的一些相关组件，比如<strong>libavutil, libswscale</strong>等。<br />
+libavformat与libavcodec是项目中重点学习的两个库。libavformat可以用来解析视频文件并将包含在其中的流分离出来，而libavcodec则处理原始音频和视频流的解码。</p>
+<h4>ffmpeg重要的结构体</h4>
+<p>ffmpeg有几个最重要的结构体：<br />
+<strong>AVFrame<br />
+  AVFormatContext<br />
+  AVCodecContext<br />
+  AVIOContext<br />
+  AVCodec<br />
+  AVStream<br />
+  ACPacket<br />
+</strong><br />
+  这些结构体包含了了解协议，解封装，解码等操作。具体结构体分析可以参见下面这篇文章<br />
+<a href="www.blog.csdn.net/leixiaohua1020/article/details/14214705">FFMPEG结构体分析</a></p>
+<h4>ffmpeg基本的解码流程</h4>
+<ol>
+<li><code>av_register_all()</code>注册所有的容器格式和编解码器。比如容器格式avi，编解码H264。</li>
+<li><code>av_open_input_file()</code>打开视频文件</li>
+<li><code>av_find_stream_info</code>从文件中提取流信息</li>
+<li>遍历所有的流，查找视频流，即<code>code_type==CODEC_TYPE_VIDEO</code>的流</li>
+<li><code>avcodec_find_decoder()</code> 查找相应的解码器。如<code>CODEC_ID_H264</code></li>
+<li><code>avcodec_open()</code>打开编解码器</li>
+<li><code>avcodec_alloc_frame()</code>为解码帧分配内存</li>
+<li><code>avcodec_decode_video</code>解码</li>
+<li><code>avcodec_close()</code>解码完成后，释放解码器</li>
+<li><code>avformat_close_input_file()</code>关闭输入文件</li>
+<li></li>
+</ol>
+                </div><!-- /.entry-content -->
+                <div class="comments">
+                <h2>Comments !</h2>
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+                           var disqus_identifier = "pages/2014/11/05/ctreat2.html";
+                           (function() {
+                                var dsq = document.createElement('script');
+                                dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = 'http://ishilei.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] ||
+                                 document.getElementsByTagName('body')[0]).appendChild(dsq);
+                          })();
+                        </script>
                 </div>
-        </div>
-        <hr />
-
+        </article>
+</section>
         </div><!--/span-->
 
                 <div class="span3 well sidebar-nav" id="sidebar">
@@ -143,33 +172,33 @@
     <li><a href="http://python.org/"><i class="icon-external-link"></i>Python</a></li>
     <li><a href="http://docs.getpelican.com/"><i class="icon-external-link"></i>Pelican</a></li>
 <li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
-<li><a href="../feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+<li><a href="../../../../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="../../../../feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
     <li><a href="https://github.com/ishilei"><i class="icon-Github-sign icon-large"></i>Github</a></li>
     <li><a href="http://weibo.com/2787160254/profile?topnav=1&wvr=6"><i class="icon-微博-sign icon-large"></i>微博</a></li>
     <li><a href="http://www.douban.com/people/78447170/"><i class="icon-豆瓣-sign icon-large"></i>豆瓣</a></li>
 
 <li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
 <li>
-<a href="../category/jiao-cheng.html">
+<a href="../../../../category/jiao-cheng.html">
     <i class="icon-folder-open icon-large"></i>教程
 </a>
 </li>
 <li>
-<a href="../category/shi-pin-chuan-shu.html">
+<a href="../../../../category/shi-pin-chuan-shu.html">
     <i class="icon-folder-open icon-large"></i>视频传输
 </a>
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../tag/pelican.html">
-        <i class="icon-tag icon-large"></i>pelican
+    <a href="../../../../tag/github.html">
+        <i class="icon-tag icon-large"></i>github
     </a>
 </li>
-<li class="tag-4">
-    <a href="../tag/github-pages.html">
-        <i class="icon-tag icon-large"></i>github pages
+<li class="tag-1">
+    <a href="../../../../tag/project.html">
+        <i class="icon-tag icon-large"></i>project
     </a>
 </li>
 
@@ -227,7 +256,7 @@ pageTracker._trackPageview();
 
     <!-- Le javascript -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../theme/js/jquery-1.7.2.min.js"></script>
-    <script src="../theme/js/bootstrap.min.js"></script>
+    <script src="../../../../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
   </body>
 </html>

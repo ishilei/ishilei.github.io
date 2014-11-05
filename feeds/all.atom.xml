@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>地球太冷</title><link href="http://www.ishilei.com/" rel="alternate"></link><link href="http://www.ishilei.com/feeds/all.atom.xml" rel="self"></link><id>http://www.ishilei.com/</id><updated>2014-11-06T20:10:00+08:00</updated><entry><title>AdHocMonitor系统中关于视频部分的说明</title><link href="http://www.ishilei.com/pages/2014/11/06/ctreat.html" rel="alternate"></link><updated>2014-11-06T20:10:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-11-06:pages/2014/11/06/ctreat.html</id><summary type="html">&lt;h3&gt;&lt;center&gt;AdHocMonitor系统中关于视频部分的说明&lt;/h3&gt;
-&lt;h5&gt;一. 客户端相关cpp的简要说明&lt;/h5&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>地球太冷</title><link href="http://www.ishilei.com/" rel="alternate"></link><link href="http://www.ishilei.com/feeds/all.atom.xml" rel="self"></link><id>http://www.ishilei.com/</id><updated>2014-11-05T15:10:00+08:00</updated><entry><title>H.264的零散笔记整理</title><link href="http://www.ishilei.com/pages/2014/11/05/ctreat4.html" rel="alternate"></link><updated>2014-11-05T15:10:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-11-05:pages/2014/11/05/ctreat4.html</id><summary type="html">&lt;h4&gt;H264与ffmpeg&lt;/h4&gt;
+&lt;p&gt;简单地说，H.264是一种编码协议，而ffmpeg则是含有支持H.264编码程序的程序包。H.264压缩比非常高，所以是目前音视频压缩的主流算法。现在已经有了H.265压缩算法，理论上在相同的带宽下可以传输两倍的数据量，并且已经有了不少成熟的产品开始投入使用。&lt;/p&gt;
+&lt;h4&gt;H.264中帧，场，宏块等数据单位&lt;/h4&gt;
+&lt;p&gt;一帧，即一副静止的图像，可分为两场（奇数场和偶数场）。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;或者说一个视频图像编码后的数据叫做一帧（frame）&lt;br /&gt;
+一帧有一个片或者多个片（slice）组成&lt;br /&gt;
+一个片由一个或多个宏块（MB）组成&lt;br /&gt;
+一个宏块由16×16的YUV数据组成&lt;/p&gt;
+&lt;h6&gt;视频编码算法以宏块为单位，逐个编码，组成连续视频流&lt;/h6&gt;
+&lt;p&gt;帧又可以分为：I帧，P帧，B帧&lt;br /&gt;
+I帧： 也叫做关键帧，包含完整的画面信息&lt;br /&gt;
+P帧：前向预测帧，只存储与前一个已解压帧的差值&lt;br /&gt;
+B帧：双向预测帧，同时依赖前一个帧和后一个帧的编解码&lt;/p&gt;
+&lt;h6&gt;VCL和NAL相关概念&lt;/h6&gt;
+&lt;p&gt;H.264的算法在概念上可以分为两层：VCL（视频编码层）负责视频内容的表示，NAL（网络提取层）负责以网络所要求的恰当的方式对数据进行打包和传送。&lt;br /&gt;
+NAL以NALU(NAL Unit)为单位来支持编码数据在基于分组交换技术网络中传输。&lt;br /&gt;
+VCL层，最原始的编码数据（SODB）经过编码，在后加若干结尾比特（字节对齐）——&amp;gt;&amp;gt;&amp;gt;RBSP&lt;br /&gt;
+&lt;strong&gt;NALU===NAL(NAL头信息)+RBSP（原始字节序列载荷）&lt;/strong&gt;&lt;br /&gt;
+注意：并不是一帧对应于一个NALU，一个slice封装成一个nal，一帧可以有多个slice，所以一帧有多个nal &lt;/p&gt;
+&lt;h4&gt;视频传输过程中的参数&lt;/h4&gt;
+&lt;p&gt;GOP：根据定义GOP表示两个I帧之间帧的数量，默认情况下 帧率和GOP长度相同。
+比如帧序列 IPPPPI 的GOP长度即为5。&lt;br /&gt;
+在保持相同的帧速率下，可以提高GOP的值实现降低码流(更多中小P帧和较少的大尺寸I帧)&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;码流，也叫码率，或者比特率。视频中的码流指由模拟信号转换为数字信号的采样率。&lt;br /&gt;
+码流越大，需要占用的带宽也越大。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;帧率，指每秒钟刷新图片的帧数。&lt;/p&gt;
+&lt;h6&gt;帧率：影响视频的连贯性　　　　 码率：影响视频的图像质量&lt;/h6&gt;</summary><category term="project"></category></entry><entry><title>RTP相关笔记</title><link href="http://www.ishilei.com/pages/2014/11/05/ctreat3.html" rel="alternate"></link><updated>2014-11-05T11:10:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-11-05:pages/2014/11/05/ctreat3.html</id><summary type="html">&lt;h4&gt;为什么采用RTP而不直接利用UDP发送数据&lt;/h4&gt;
+&lt;p&gt;UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。&lt;/p&gt;
+&lt;h4&gt;H.264 RTP 负载格式&lt;/h4&gt;
+&lt;h6&gt;&lt;font color='green'&gt;NALU&lt;/font&gt;&lt;/h6&gt;
+&lt;p&gt;NALU头由一个字节组成&lt;br /&gt;
++-------------------------------+&lt;br /&gt;
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |&lt;br /&gt;
+| F | NRI   | 　　TYpe 　|　　&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;F : 在Ｈ.264中规定必须置为1&lt;br /&gt;
+NRI : 知道NALU重要性，一般情况不关心&lt;br /&gt;
+Type：指示这个NALU单元的类型。&lt;br /&gt;
+NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的值进行指定。&lt;br /&gt;
+1. 单一NAL单元模式，即一个RTP包仅由一个完整的NALU组成。
+2. 组合封包模式，即可能由多个NAL单元组成一个RTP包。
+3. 分片封包模式，用与把 一个NALU单元封装成多个RTP包。&lt;/p&gt;
+&lt;h6&gt;在我的使用中，只遇到了第一种和第三种类型&lt;/h6&gt;
+&lt;h6&gt;&lt;font color='green'&gt;单一NALU发送&lt;/font&gt;&lt;/h6&gt;
+&lt;p&gt;NALU长度小于MTU大小的包，一般采用这种发送方式。&lt;br /&gt;
+&lt;strong&gt;NALU=StartCode + NALU Header + NALU Payload&lt;/strong&gt;&lt;br /&gt;
+StartCode : 用于标志一个NALU单元的开始，必须是“00 00 00 01”或“00 00 01”&lt;br /&gt;
+NALU Header ： 一个字节，NALU头&lt;br /&gt;
+NALU Payload : NALU负载内容  &lt;/p&gt;
+&lt;h6&gt;RTP打包时，去除StartCode,把剩下的数据封包成RTP包即可&lt;/h6&gt;
+&lt;p&gt;例如一个NALU数据是下面所示：&lt;br /&gt;
+【00 00 00 01 67 42 78 A0 E4 65…… 】&lt;br /&gt;
+封装成RTP包，即如下所示：&lt;br /&gt;
+【RTPHeader | 67 42 78 A0 E4 65 ……】  &lt;/p&gt;
+&lt;h6&gt;客户端是播放器，如VLC，则需要将StartCode去除，而如果使用ffmpeg在客户端解码，则发送前不需要去除StartCode。&lt;/h6&gt;
+&lt;h6&gt;&lt;font color='green'&gt;FU-A的分片格式&lt;/font&gt;&lt;/h6&gt;
+&lt;p&gt;NALU长度大于MTU的包，需要分片发送。12字节的RTP Header后面跟着就是FU-A分片。&lt;br /&gt;
+FU-A分片时FU indicator中type字段等于28。  &lt;/p&gt;
+&lt;h6&gt;注：很多资料中既有NALU indicator和NALU Header两种写法，令人困惑。在单一NALU中一般写成NALU Header，而在FU-A分片中一般写成NALU indicator。你可以认为在FU-A分片中，NALU header被拆分成了FU indicator 和Fu header。&lt;/h6&gt;
+&lt;p&gt;采用FU-A分片，在NALU indicator 后面还有一个字节的FU header&lt;br /&gt;
+FU header 的格式如下：&lt;br /&gt;
++-------------------------------+&lt;br /&gt;
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |&lt;br /&gt;
+| S | E | R |  　Type　　|&lt;br /&gt;
++-------------------------------+&lt;br /&gt;
+S bit： 表示分片NAL的开始，当它为1时，E不能为1&lt;br /&gt;
+E bit ： 表示分片NAL的结束，当它为1是，S不能为1&lt;br /&gt;
+R bit：保留位 
+Type ： 就是NALU indicator中的Type&lt;br /&gt;
+&lt;strong&gt;同一个NALU分包后的FU indicator是完全一致的，FU header只有S以及E位有区别，分别标记开始和结束，它们RTP分包的序列号应该是依次递增的，并且它们的时间戳必须一致。&lt;/strong&gt;&lt;/p&gt;</summary><category term="project"></category></entry><entry><title>AdHocMonitor系统中关于视频部分的说明</title><link href="http://www.ishilei.com/pages/2014/11/04/ctreat.html" rel="alternate"></link><updated>2014-11-04T20:10:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-11-04:pages/2014/11/04/ctreat.html</id><summary type="html">&lt;h5&gt;一. 客户端相关cpp的简要说明&lt;/h5&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;font color=''&gt;main.cpp &lt;/font&gt;：其中包括字符格式的设置，QSplashSreen实现Qt程序的画面启动等。 &lt;/li&gt;
 &lt;li&gt;common.h : 定义程序的通用信息，即一些宏定义。&lt;/li&gt;
@@ -38,7 +109,7 @@ API的调用。包括TS传输时，pmt，pat，pts，pcr等信息的写入。最
 &lt;/ol&gt;
 &lt;h6&gt;接着需要判断刚接收到streamtype类型，如果streamtype=1，表示客户端希望TS传输方式，如果streamtype=2，则表示客户端希望RTP传输方式&lt;/h6&gt;
 &lt;h6&gt;TS传输方式,主要步骤在&lt;code&gt;sendMainTS()&lt;/code&gt;函数中&lt;/h6&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dump_video_para&lt;/span&gt;&lt;span class="err"&gt;（）&lt;/span&gt;&lt;span class="c1"&gt;//打印视频传输相关参数`  即从客户端接收的参数消息&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dump_video_para&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="c1"&gt;//打印视频传输相关参数`  即从客户端接收的参数消息&lt;/span&gt;
 &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Init_Carm&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;//初始化摄像头 其中包括了帧缓冲区的申请，内存映射等操作，最后采集图像。  &lt;/span&gt;
 &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetCamrFramNALU&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;//得到一个NALU，这里实现时默认NALU即一个视频帧，其中还包括了MFC（Multi Fomat Codec,支持H.264的编解码）编码的三个函数，对一帧进行了压缩编码  &lt;/span&gt;
 &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;retransmit_si_info&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="n"&gt;mpegts_insert_pcr_only&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;//插入PMT，PAT表和PCR  &lt;/span&gt;
@@ -50,7 +121,7 @@ API的调用。包括TS传输时，pmt，pat，pts，pcr等信息的写入。最
 &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Init_Carm&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;  
 &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InitRTPConPara&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;//初始化RTP连接 如增加请求连接的客户端地址  &lt;/span&gt;
 &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetCamrFramNALU&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="err"&gt;和&lt;/span&gt;&lt;span class="n"&gt;TS&lt;/span&gt;&lt;span class="err"&gt;一样，通过&lt;/span&gt;&lt;span class="n"&gt;ioctl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;VIDIOC_DQBUF&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;从缓冲区中取得&lt;/span&gt;        &lt;span class="err"&gt;一帧并进行压缩编码。&lt;/span&gt;  
- &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="err"&gt;根据帧的大小&lt;/span&gt;&lt;span class="n"&gt;payloadsize&lt;/span&gt;&lt;span class="err"&gt;判断是否需要分包。然后调用&lt;/span&gt;&lt;span class="n"&gt;RTP&lt;/span&gt;&lt;span class="err"&gt;的&lt;/span&gt;&lt;span class="n"&gt;sendPacket&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="err"&gt;发送数据帧&lt;/span&gt;
+&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="err"&gt;根据帧的大小&lt;/span&gt; &lt;span class="n"&gt;payloadsize&lt;/span&gt; &lt;span class="err"&gt;判断是否需要分包。然后调用&lt;/span&gt; &lt;span class="n"&gt;RTP&lt;/span&gt; &lt;span class="err"&gt;的&lt;/span&gt; &lt;span class="n"&gt;sendPacket&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="err"&gt;发送数据帧&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -74,14 +145,14 @@ API的调用。包括TS传输时，pmt，pat，pts，pcr等信息的写入。最
 &lt;li&gt;&lt;code&gt;av_read_frame()&lt;/code&gt; 从视频流中读取视频数据&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;avcodec_decode_video2()&lt;/code&gt; 对视频数据进行解码&lt;/li&gt;
 &lt;li&gt;进行图像转换&lt;/li&gt;
-&lt;/ol&gt;</summary></entry><entry><title>教程：使用Pelican和Github Pages搭建个人博客</title><link href="http://www.ishilei.com/pages/2014/11/03/creat-blog.html" rel="alternate"></link><updated>2014-11-03T19:44:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-11-03:pages/2014/11/03/creat-blog.html</id><summary type="html">&lt;h5&gt;前言&lt;/h5&gt;
+&lt;/ol&gt;</summary><category term="project"></category></entry><entry><title>使用Pelican和Github Pages搭建个人博客</title><link href="http://www.ishilei.com/pages/2014/11/03/creat-blog.html" rel="alternate"></link><updated>2014-11-03T19:44:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-11-03:pages/2014/11/03/creat-blog.html</id><summary type="html">&lt;h5&gt;前言&lt;/h5&gt;
 &lt;p&gt;近段时间有了想搭建个人博客的冲动，因此也看了不少利用&lt;font color='red'&gt;Pelican&lt;/font&gt;和&lt;font color='red'&gt;Github Pages&lt;/font&gt;搭建博客的教程，但是完全按照教程去做，总会出现一些教程中没有提到的问题。因此，把自己成功搭建的过程也分享一下。&lt;/p&gt;
 &lt;h5&gt;基础&lt;/h5&gt;
 &lt;p&gt;1.搭建博客之前最好掌握git的基本操作，这样会让你在搭建的时候少很多困惑，比如一些基本的git命令，知道它的作用会对搭建博客以及以后博客的更新起到很大的作用。在此强烈推荐progit，不需要看完整本书，只需要了解其基本的操作命令。电子版链接&lt;a href="http://git-scm.com/book/zh/v1"&gt;progit&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;2.pelican和github可自行搜索相关资料进行了解。博客写作编辑器markdown自行学习1小时便能搞定。  &lt;/p&gt;
 &lt;h5&gt;安装环境&lt;/h5&gt;
 &lt;p&gt;ubuntu 14.04&lt;br /&gt;
-首先ubuntu就是利用git进行版本控制的，在ubuntu环境搭建基于github的博客系统个人感觉更加简单，更容易上手，用起来也更加方便，当然这得有linux环境操作基础。&lt;/p&gt;
+首先linux内核的版本就是利用git进行版本控制的，在ubuntu环境搭建基于github的博客系统个人感觉更加简单，更容易上手，用起来也更加方便，当然这得有linux环境操作基础。&lt;/p&gt;
 &lt;h5&gt;安装Pelican&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -134,10 +205,48 @@ API的调用。包括TS传输时，pmt，pat，pts，pcr等信息的写入。最
 &lt;code&gt;git remote add origin https://github.com/X/X.github.io.git&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;git push   origin master&lt;/code&gt;&lt;br /&gt;
 倒数第二条命令中的X即github的用户名。如果你已经看过progit的话，就知道这些命令具体做了什么。&lt;/p&gt;
+&lt;h5&gt;pelican主题&lt;/h5&gt;
+&lt;p&gt;选择自己喜欢的主题，比如要选择gum主题&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/getpelican/pelican-themes.git&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;
+&lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;gum&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="n"&gt;vim&lt;/span&gt; &lt;span class="n"&gt;pelicanconf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在pelicanconf中修改：  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;THEME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;gum&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h5&gt;评论系统的添加&lt;/h5&gt;
+&lt;p&gt;可以去 &lt;a href="https://disqus.com/admin/signup/"&gt;Disqus&lt;/a&gt;申请账号，获得你的shortname。&lt;br /&gt;
+然后在pelicanconf.py中修改：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;DISQUS_SITENAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;shortname&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;h5&gt;域名的绑定&lt;/h5&gt;
 &lt;ol&gt;
 &lt;li&gt;首先买个域名。国内国外都有许多卖域名的网站。本人是在Godaddy上买的，支持支付宝支付。&lt;/li&gt;
 &lt;li&gt;将域名与GitHub Pages进行空间绑定。即在username.github.io的根目录下新建一个CNAME的文本文件，里面写入你要绑定的域名。比如我的CNAME文件中内容就是：www.ishilei.com&lt;/li&gt;
-&lt;li&gt;DNS的设置。推荐使用DNSpod,免费。&lt;/li&gt;
+&lt;li&gt;DNS的设置。推荐使用DNSpod,免费。&lt;br /&gt;
+&lt;strong&gt;这部分内容的在这篇链接&lt;a href="http://blog.csdn.net/poem_of_sunshine/article/details/29369785"&gt;文章&lt;/a&gt;中讲的非常详细,虽然它是用hexo进行搭建，但是域名这一块是完全相同的。&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h6&gt;这部分内容的在这篇链接&lt;a href="http://blog.csdn.net/poem_of_sunshine/article/details/29369785"&gt;文章&lt;/a&gt;中讲的非常详细,虽然它是用hexo进行搭建，但是域名这一块是完全相同的。&lt;/h6&gt;</summary><category term="github pages"></category><category term="pelican"></category></entry></feed>
+&lt;h5&gt;关于博客的更新&lt;/h5&gt;
+&lt;p&gt;我看过的很多教程都没有这部分内容，因此使我这个小白花了不少时间去搞定这部分的问题。&lt;br /&gt;
+这里的问题是每次更新博客时，要执行&lt;code&gt;make publish&lt;/code&gt;，而这个命令都会导致output目录下的.git目录文件被覆盖。这样就需要重新在output下执行&lt;code&gt;git init&lt;/code&gt;命令。执行后续上传命令的时候还会发生各种问题，比如要求远端仓库与本地仓库合并等。&lt;br /&gt;
+解决方法是修改blog目录下的Makefile文件中publish这一行改为：  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;publish:&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PELICAN&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;INPUTDIR&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;OUTPUTDIR&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CONFFILE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PELICANOPTS&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以后博客的更新，执行&lt;code&gt;make publish&lt;/code&gt;后，可以运行&lt;code&gt;./develop_server.sh start&lt;/code&gt;&lt;br /&gt;
+这样可以现在本地127.0.0.1:8000查看博客的效果&lt;br /&gt;
+确认博客已经修改完成则运行下面命令进行上传  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;commit message&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="github"></category></entry></feed>
