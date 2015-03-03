@@ -71,6 +71,11 @@
 					</a>
                   </li>
                   <li >
+                    <a href="../category/project.html">
+						<i class="icon-folder-open icon-large"></i>project
+					</a>
+                  </li>
+                  <li >
                     <a href="../category/shi-pin-chuan-shu.html">
 						<i class="icon-folder-open icon-large"></i>视频传输
 					</a>
@@ -90,6 +95,37 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
+        <div class="article">
+                <h1><a href="../pages/2014/11/18/ctreat.html">AdHocMonitor系统中关于视频部分的说明</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-11-18T20:10:00">
+        <i class="icon-calendar"></i>2014-11-18
+</abbr>
+<span class="label">By</span>
+<a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
+<span class="label">Category</span>
+<a href="../category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
+
+
+<span class="label">Tags</span>
+	<a href="../tag/project.html"><i class="icon-tag"></i>project</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h5>一. 客户端相关cpp的简要说明</h5>
+<ul>
+<li><font color=''>main.cpp </font>：其中包括字符格式的设置，QSplashSreen实现Qt程序的画面启动等。 </li>
+<li>common.h : 定义程序的通用信息，即一些宏定义。</li>
+<li>abstractconf.cpp : 设置类的基类。比如虚函数 <code>loadConf()</code>,<code>saveConf()</code>...</li>
+<li>Uiappabout : 显示程序关于信息，包括软件的作者学校等信息。</li>
+<li>Uiappoutput.cpp : 整个程序运行中相关信息的显示输出类</li>
+<li>Uidatasingle.cpp : 视频连接界面。有显示网络节点，新建及放弃连接等成员函数</li>
+<li>Uivideowindow.cpp : 视频渲染底板。本程序提供了6个视频显示窗口实现<code>addWin(),delWin()</code>添加删除渲染空间。</li>
+<li>Uimainconf.cpp : 设置界面集合。<code>addConf()</code>增加相关配置界面，此程序中目前有程序，路由，视频和扩展4个配置界面。<code>confUpdate()</code>完成更新。<code>applyClicked()</code>应用配置修改。还有一些其他相关配置参数的操作。</li>
+<li>Uivideocons.cpp : 视频连接列表界面组件 ...</li></ul>
+                        <a class="btn primary xsmall" href="../pages/2014/11/18/ctreat.html">more ...</a>
+                </div>
+        </div>
+        <hr />
         <div class="article">
                 <h1><a href="../pages/2014/11/05/ctreat4.html">H.264的零散笔记整理</a></h1>
                 <div class="well small"><footer class="post-info">
@@ -136,15 +172,13 @@ B帧：双向预测帧，同时依赖前一个帧和后一个帧的编解码</p>
 <span class="label">By</span>
 <a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
 <span class="label">Category</span>
-<a href="../category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
+<a href="../category/project.html"><i class="icon-folder-open"></i>project</a>.
 
 
-<span class="label">Tags</span>
-	<a href="../tag/project.html"><i class="icon-tag"></i>project</a>
 </footer><!-- /.post-info --></div>
-                <div class="summary"><h4>为什么采用RTP而不直接利用UDP发送数据</h4>
+                <div class="summary"><h3>为什么采用RTP而不直接利用UDP发送数据</h3>
 <p>UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。</p>
-<h4>H.264 RTP 负载格式</h4>
+<h3>H.264 RTP 负载格式</h3>
 <h6><font color='green'>NALU</font></h6>
 <p>NALU头由一个字节组成<br />
 +-------------------------------+<br />
@@ -163,37 +197,6 @@ NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的
 <p>NALU长度小于MTU大小的包，一般采用这种发送方式。<br />
 <strong>NALU=StartCode + NALU Header + NALU ...</strong></p>
                         <a class="btn primary xsmall" href="../pages/2014/11/05/ctreat3.html">more ...</a>
-                </div>
-        </div>
-        <hr />
-        <div class="article">
-                <h1><a href="../pages/2014/11/04/ctreat.html">AdHocMonitor系统中关于视频部分的说明</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2014-11-04T20:10:00">
-        <i class="icon-calendar"></i>2014-11-04
-</abbr>
-<span class="label">By</span>
-<a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
-<span class="label">Category</span>
-<a href="../category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
-
-
-<span class="label">Tags</span>
-	<a href="../tag/project.html"><i class="icon-tag"></i>project</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h5>一. 客户端相关cpp的简要说明</h5>
-<ul>
-<li><font color=''>main.cpp </font>：其中包括字符格式的设置，QSplashSreen实现Qt程序的画面启动等。 </li>
-<li>common.h : 定义程序的通用信息，即一些宏定义。</li>
-<li>abstractconf.cpp : 设置类的基类。比如虚函数 <code>loadConf()</code>,<code>saveConf()</code>...</li>
-<li>Uiappabout : 显示程序关于信息，包括软件的作者学校等信息。</li>
-<li>Uiappoutput.cpp : 整个程序运行中相关信息的显示输出类</li>
-<li>Uidatasingle.cpp : 视频连接界面。有显示网络节点，新建及放弃连接等成员函数</li>
-<li>Uivideowindow.cpp : 视频渲染底板。本程序提供了6个视频显示窗口实现<code>addWin(),delWin()</code>添加删除渲染空间。</li>
-<li>Uimainconf.cpp : 设置界面集合。<code>addConf()</code>增加相关配置界面，此程序中目前有程序，路由，视频和扩展4个配置界面。<code>confUpdate()</code>完成更新。<code>applyClicked()</code>应用配置修改。还有一些其他相关配置参数的操作。</li>
-<li>Uivideocons.cpp : 视频连接列表界面组件 ...</li></ul>
-                        <a class="btn primary xsmall" href="../pages/2014/11/04/ctreat.html">more ...</a>
                 </div>
         </div>
         <hr />
@@ -259,6 +262,11 @@ NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的
 <li>
 <a href="../category/jiao-cheng.html">
     <i class="icon-folder-open icon-large"></i>教程
+</a>
+</li>
+<li>
+<a href="../category/project.html">
+    <i class="icon-folder-open icon-large"></i>project
 </a>
 </li>
 <li>
