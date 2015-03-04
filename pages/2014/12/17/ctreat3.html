@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>地球太冷 - project</title>
+    <title>RTP相关笔记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="ishilei">
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../theme/css/bootstrap.min.css" type="text/css" />
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -30,10 +30,10 @@
         font-size: 6pt;
      }
     </style>
-    <link href="../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link href="../theme/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../../theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="../../../../theme/css/font-awesome.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments.css" rel="stylesheet">
+    <link href="../../../../theme/css/pygments.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -41,13 +41,13 @@
     <![endif]-->
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../theme/images/favicon.ico">
-    <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../theme/images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../theme/images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="../../../../theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="../../../../theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../../../theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../../../theme/images/apple-touch-icon-114x114.png">
 
-    <link href="../" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
-    <link href="../feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
+    <link href="../../../../" type="application/atom+xml" rel="alternate" title="地球太冷 ATOM Feed" />
+    <link href="../../../../feeds/all.rss.xml" type="application/atom+xml" rel="alternate" title="地球太冷 RSS Feed" />
 
   </head>
 
@@ -61,28 +61,28 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="../index.html">地球太冷 </a>
+          <a class="brand" href="../../../../index.html">地球太冷 </a>
           <div class="nav-collapse">
             <ul class="nav">
                           <li class="divider-vertical"></li>
                   <li >
-                    <a href="../category/jiao-cheng.html">
+                    <a href="../../../../category/jiao-cheng.html">
 						<i class="icon-folder-open icon-large"></i>教程
 					</a>
                   </li>
                   <li class="active">
-                    <a href="../category/project.html">
+                    <a href="../../../../category/project.html">
 						<i class="icon-folder-open icon-large"></i>project
 					</a>
                   </li>
                   <li >
-                    <a href="../category/shi-pin-chuan-shu.html">
+                    <a href="../../../../category/shi-pin-chuan-shu.html">
 						<i class="icon-folder-open icon-large"></i>视频传输
 					</a>
                   </li>
 
                           <ul class="nav pull-right">
-                                <li><a href="../archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                                <li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
                           </ul>
 
             </ul>
@@ -95,21 +95,32 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
-        <div class="article">
-                <h1><a href="../pages/2014/12/17/ctreat3.html">RTP相关笔记</a></h1>
-                <div class="well small"><footer class="post-info">
+<section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to RTP相关笔记">
+                                        RTP相关笔记
+                                </a>
+                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+<footer class="post-info">
 <span class="label">Date</span>
 <abbr class="published" title="2014-12-17T11:10:00">
         <i class="icon-calendar"></i>2014-12-17
 </abbr>
 <span class="label">By</span>
-<a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
+<a href="../../../../author/shilei.html"><i class="icon-user"></i>shilei</a>
 <span class="label">Category</span>
-<a href="../category/project.html"><i class="icon-folder-open"></i>project</a>.
+<a href="../../../../category/project.html"><i class="icon-folder-open"></i>project</a>.
 
 
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h3>为什么采用RTP而不直接利用UDP发送数据</h3>
+</footer><!-- /.post-info -->                </div>
+                <h3>为什么采用RTP而不直接利用UDP发送数据</h3>
 <p>UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。</p>
 <h3>H.264 RTP 负载格式</h3>
 <h6><font color='green'>NALU</font></h6>
@@ -128,12 +139,48 @@ NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的
 <h6>在我的使用中，只遇到了第一种和第三种类型</h6>
 <h6><font color='green'>单一NALU发送</font></h6>
 <p>NALU长度小于MTU大小的包，一般采用这种发送方式。<br />
-<strong>NALU=StartCode + NALU Header + NALU ...</strong></p>
-                        <a class="btn primary xsmall" href="../pages/2014/12/17/ctreat3.html">more ...</a>
+<strong>NALU=StartCode + NALU Header + NALU Payload</strong><br />
+StartCode : 用于标志一个NALU单元的开始，必须是“00 00 00 01”或“00 00 01”<br />
+NALU Header ： 一个字节，NALU头<br />
+NALU Payload : NALU负载内容  </p>
+<h6>RTP打包时，去除StartCode,把剩下的数据封包成RTP包即可</h6>
+<p>例如一个NALU数据是下面所示：<br />
+【00 00 00 01 67 42 78 A0 E4 65…… 】<br />
+封装成RTP包，即如下所示：<br />
+【RTPHeader | 67 42 78 A0 E4 65 ……】  </p>
+<h6>客户端是播放器，如VLC，则需要将StartCode去除，而如果使用ffmpeg在客户端解码，则发送前不需要去除StartCode。</h6>
+<h6><font color='green'>FU-A的分片格式</font></h6>
+<p>NALU长度大于MTU的包，需要分片发送。12字节的RTP Header后面跟着就是FU-A分片。<br />
+FU-A分片时FU indicator中type字段等于28。  </p>
+<h6>注：很多资料中既有NALU indicator和NALU Header两种写法，令人困惑。在单一NALU中一般写成NALU Header，而在FU-A分片中一般写成NALU indicator。你可以认为在FU-A分片中，NALU header被拆分成了FU indicator 和Fu header。</h6>
+<p>采用FU-A分片，在NALU indicator 后面还有一个字节的FU header<br />
+FU header 的格式如下：<br />
++-------------------------------+<br />
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |<br />
+| S | E | R |  　Type　　|<br />
++-------------------------------+<br />
+S bit： 表示分片NAL的开始，当它为1时，E不能为1<br />
+E bit ： 表示分片NAL的结束，当它为1是，S不能为1<br />
+R bit：保留位 
+Type ： 就是NALU indicator中的Type<br />
+<strong>同一个NALU分包后的FU indicator是完全一致的，FU header只有S以及E位有区别，分别标记开始和结束，它们RTP分包的序列号应该是依次递增的，并且它们的时间戳必须一致。</strong></p>
+                </div><!-- /.entry-content -->
+                <div class="comments">
+                <h2>Comments !</h2>
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+                           var disqus_identifier = "pages/2014/12/17/ctreat3.html";
+                           (function() {
+                                var dsq = document.createElement('script');
+                                dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = 'http://ishilei.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] ||
+                                 document.getElementsByTagName('body')[0]).appendChild(dsq);
+                          })();
+                        </script>
                 </div>
-        </div>
-        <hr />
-
+        </article>
+</section>
         </div><!--/span-->
 
                 <div class="span3 well sidebar-nav" id="sidebar">
@@ -143,37 +190,37 @@ NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的
     <li><a href="http://python.org/"><i class="icon-external-link"></i>Python</a></li>
     <li><a href="http://docs.getpelican.com/"><i class="icon-external-link"></i>Pelican</a></li>
 <li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
-<li><a href="../feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+<li><a href="../../../../" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="../../../../feeds/all.rss.xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
     <li><a href="https://github.com/ishilei"><i class="icon-Github-sign icon-large"></i>Github</a></li>
     <li><a href="http://weibo.com/2787160254/profile?topnav=1&wvr=6"><i class="icon-微博-sign icon-large"></i>微博</a></li>
     <li><a href="http://www.douban.com/people/78447170/"><i class="icon-豆瓣-sign icon-large"></i>豆瓣</a></li>
 
 <li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
 <li>
-<a href="../category/jiao-cheng.html">
+<a href="../../../../category/jiao-cheng.html">
     <i class="icon-folder-open icon-large"></i>教程
 </a>
 </li>
 <li>
-<a href="../category/project.html">
+<a href="../../../../category/project.html">
     <i class="icon-folder-open icon-large"></i>project
 </a>
 </li>
 <li>
-<a href="../category/shi-pin-chuan-shu.html">
+<a href="../../../../category/shi-pin-chuan-shu.html">
     <i class="icon-folder-open icon-large"></i>视频传输
 </a>
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../tag/github.html">
+    <a href="../../../../tag/github.html">
         <i class="icon-tag icon-large"></i>github
     </a>
 </li>
 <li class="tag-1">
-    <a href="../tag/project.html">
+    <a href="../../../../tag/project.html">
         <i class="icon-tag icon-large"></i>project
     </a>
 </li>
@@ -232,7 +279,7 @@ pageTracker._trackPageview();
 
     <!-- Le javascript -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../theme/js/jquery-1.7.2.min.js"></script>
-    <script src="../theme/js/bootstrap.min.js"></script>
+    <script src="../../../../theme/js/jquery-1.7.2.min.js"></script>
+    <script src="../../../../theme/js/bootstrap.min.js"></script>
   </body>
 </html>

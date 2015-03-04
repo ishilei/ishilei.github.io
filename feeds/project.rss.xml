@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>地球太冷</title><link>http://www.ishilei.com/</link><description></description><atom:link href="http://www.ishilei.com/feeds/project.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 05 Nov 2014 11:10:00 +0800</lastBuildDate><item><title>RTP相关笔记</title><link>http://www.ishilei.com/pages/2014/11/05/ctreat3.html</link><description>&lt;h3&gt;为什么采用RTP而不直接利用UDP发送数据&lt;/h3&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>地球太冷</title><link>http://www.ishilei.com/</link><description></description><atom:link href="http://www.ishilei.com/feeds/project.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 17 Dec 2014 11:10:00 +0800</lastBuildDate><item><title>RTP相关笔记</title><link>http://www.ishilei.com/pages/2014/12/17/ctreat3.html</link><description>&lt;h3&gt;为什么采用RTP而不直接利用UDP发送数据&lt;/h3&gt;
 &lt;p&gt;UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。&lt;/p&gt;
 &lt;h3&gt;H.264 RTP 负载格式&lt;/h3&gt;
 &lt;h6&gt;&lt;font color='green'&gt;NALU&lt;/font&gt;&lt;/h6&gt;
@@ -42,4 +42,4 @@ S bit： 表示分片NAL的开始，当它为1时，E不能为1&lt;br /&gt;
 E bit ： 表示分片NAL的结束，当它为1是，S不能为1&lt;br /&gt;
 R bit：保留位 
 Type ： 就是NALU indicator中的Type&lt;br /&gt;
-&lt;strong&gt;同一个NALU分包后的FU indicator是完全一致的，FU header只有S以及E位有区别，分别标记开始和结束，它们RTP分包的序列号应该是依次递增的，并且它们的时间戳必须一致。&lt;/strong&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shilei</dc:creator><pubDate>Wed, 05 Nov 2014 11:10:00 +0800</pubDate><guid>tag:www.ishilei.com,2014-11-05:pages/2014/11/05/ctreat3.html</guid></item></channel></rss>
+&lt;strong&gt;同一个NALU分包后的FU indicator是完全一致的，FU header只有S以及E位有区别，分别标记开始和结束，它们RTP分包的序列号应该是依次递增的，并且它们的时间戳必须一致。&lt;/strong&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shilei</dc:creator><pubDate>Wed, 17 Dec 2014 11:10:00 +0800</pubDate><guid>tag:www.ishilei.com,2014-12-17:pages/2014/12/17/ctreat3.html</guid></item></channel></rss>

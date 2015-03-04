@@ -96,78 +96,11 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
-                <h1><a href="./pages/2014/11/18/ctreat.html">AdHocMonitor系统中关于视频部分的说明</a></h1>
+                <h1><a href="./pages/2014/12/17/ctreat3.html">RTP相关笔记</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2014-11-18T20:10:00">
-        <i class="icon-calendar"></i>2014-11-18
-</abbr>
-<span class="label">By</span>
-<a href="./author/shilei.html"><i class="icon-user"></i>shilei</a>
-<span class="label">Category</span>
-<a href="./category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
-
-
-<span class="label">Tags</span>
-	<a href="./tag/project.html"><i class="icon-tag"></i>project</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h5>一. 客户端相关cpp的简要说明</h5>
-<ul>
-<li><font color=''>main.cpp </font>：其中包括字符格式的设置，QSplashSreen实现Qt程序的画面启动等。 </li>
-<li>common.h : 定义程序的通用信息，即一些宏定义。</li>
-<li>abstractconf.cpp : 设置类的基类。比如虚函数 <code>loadConf()</code>,<code>saveConf()</code>...</li>
-<li>Uiappabout : 显示程序关于信息，包括软件的作者学校等信息。</li>
-<li>Uiappoutput.cpp : 整个程序运行中相关信息的显示输出类</li>
-<li>Uidatasingle.cpp : 视频连接界面。有显示网络节点，新建及放弃连接等成员函数</li>
-<li>Uivideowindow.cpp : 视频渲染底板。本程序提供了6个视频显示窗口实现<code>addWin(),delWin()</code>添加删除渲染空间。</li>
-<li>Uimainconf.cpp : 设置界面集合。<code>addConf()</code>增加相关配置界面，此程序中目前有程序，路由，视频和扩展4个配置界面。<code>confUpdate()</code>完成更新。<code>applyClicked()</code>应用配置修改。还有一些其他相关配置参数的操作。</li>
-<li>Uivideocons.cpp : 视频连接列表界面组件 ...</li></ul>
-                        <a class="btn primary xsmall" href="./pages/2014/11/18/ctreat.html">more ...</a>
-                </div>
-        </div>
-        <hr />
-        <div class="article">
-                <h1><a href="./pages/2014/11/05/ctreat4.html">H.264的零散笔记整理</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2014-11-05T15:10:00">
-        <i class="icon-calendar"></i>2014-11-05
-</abbr>
-<span class="label">By</span>
-<a href="./author/shilei.html"><i class="icon-user"></i>shilei</a>
-<span class="label">Category</span>
-<a href="./category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
-
-
-<span class="label">Tags</span>
-	<a href="./tag/project.html"><i class="icon-tag"></i>project</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h4>H264与ffmpeg</h4>
-<p>简单地说，H.264是一种编码协议，而ffmpeg则是含有支持H.264编码程序的程序包。H.264压缩比非常高，所以是目前音视频压缩的主流算法。现在已经有了H.265压缩算法，理论上在相同的带宽下可以传输两倍的数据量，并且已经有了不少成熟的产品开始投入使用。</p>
-<h4>H.264中帧，场，宏块等数据单位</h4>
-<p>一帧，即一副静止的图像，可分为两场（奇数场和偶数场）。</p>
-<hr />
-<p>或者说一个视频图像编码后的数据叫做一帧（frame）<br />
-一帧有一个片或者多个片（slice）组成<br />
-一个片由一个或多个宏块（MB）组成<br />
-一个宏块由16×16的YUV数据组成</p>
-<h6>视频编码算法以宏块为单位，逐个编码，组成连续视频流</h6>
-<p>帧又可以分为：I帧，P帧，B帧<br />
-I帧： 也叫做关键帧，包含完整的画面信息<br />
-P帧：前向预测帧，只存储与前一个已解压帧的差值<br />
-B帧：双向预测帧，同时依赖前一个帧和后一个帧的编解码</p>
-<h6>VCL和NAL相关概念</h6>
-<p>H.264的算法在概念上可以分为两层 ...</p>
-                        <a class="btn primary xsmall" href="./pages/2014/11/05/ctreat4.html">more ...</a>
-                </div>
-        </div>
-        <hr />
-        <div class="article">
-                <h1><a href="./pages/2014/11/05/ctreat3.html">RTP相关笔记</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2014-11-05T11:10:00">
-        <i class="icon-calendar"></i>2014-11-05
+<abbr class="published" title="2014-12-17T11:10:00">
+        <i class="icon-calendar"></i>2014-12-17
 </abbr>
 <span class="label">By</span>
 <a href="./author/shilei.html"><i class="icon-user"></i>shilei</a>
@@ -196,7 +129,74 @@ NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的
 <h6><font color='green'>单一NALU发送</font></h6>
 <p>NALU长度小于MTU大小的包，一般采用这种发送方式。<br />
 <strong>NALU=StartCode + NALU Header + NALU ...</strong></p>
-                        <a class="btn primary xsmall" href="./pages/2014/11/05/ctreat3.html">more ...</a>
+                        <a class="btn primary xsmall" href="./pages/2014/12/17/ctreat3.html">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
+                <h1><a href="./pages/2014/12/15/ctreat4.html">H.264的零散笔记整理</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-12-15T15:10:00">
+        <i class="icon-calendar"></i>2014-12-15
+</abbr>
+<span class="label">By</span>
+<a href="./author/shilei.html"><i class="icon-user"></i>shilei</a>
+<span class="label">Category</span>
+<a href="./category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/project.html"><i class="icon-tag"></i>project</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h4>H264与ffmpeg</h4>
+<p>简单地说，H.264是一种编码协议，而ffmpeg则是含有支持H.264编码程序的程序包。H.264压缩比非常高，所以是目前音视频压缩的主流算法。现在已经有了H.265压缩算法，理论上在相同的带宽下可以传输两倍的数据量，并且已经有了不少成熟的产品开始投入使用。</p>
+<h4>H.264中帧，场，宏块等数据单位</h4>
+<p>一帧，即一副静止的图像，可分为两场（奇数场和偶数场）。</p>
+<hr />
+<p>或者说一个视频图像编码后的数据叫做一帧（frame）<br />
+一帧有一个片或者多个片（slice）组成<br />
+一个片由一个或多个宏块（MB）组成<br />
+一个宏块由16×16的YUV数据组成</p>
+<h6>视频编码算法以宏块为单位，逐个编码，组成连续视频流</h6>
+<p>帧又可以分为：I帧，P帧，B帧<br />
+I帧： 也叫做关键帧，包含完整的画面信息<br />
+P帧：前向预测帧，只存储与前一个已解压帧的差值<br />
+B帧：双向预测帧，同时依赖前一个帧和后一个帧的编解码</p>
+<h6>VCL和NAL相关概念</h6>
+<p>H.264的算法在概念上可以分为两层 ...</p>
+                        <a class="btn primary xsmall" href="./pages/2014/12/15/ctreat4.html">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
+                <h1><a href="./pages/2014/11/18/ctreat.html">AdHocMonitor系统中关于视频部分的说明</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-11-18T20:10:00">
+        <i class="icon-calendar"></i>2014-11-18
+</abbr>
+<span class="label">By</span>
+<a href="./author/shilei.html"><i class="icon-user"></i>shilei</a>
+<span class="label">Category</span>
+<a href="./category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/project.html"><i class="icon-tag"></i>project</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h5>一. 客户端相关cpp的简要说明</h5>
+<ul>
+<li><font color=''>main.cpp </font>：其中包括字符格式的设置，QSplashSreen实现Qt程序的画面启动等。 </li>
+<li>common.h : 定义程序的通用信息，即一些宏定义。</li>
+<li>abstractconf.cpp : 设置类的基类。比如虚函数 <code>loadConf()</code>,<code>saveConf()</code>...</li>
+<li>Uiappabout : 显示程序关于信息，包括软件的作者学校等信息。</li>
+<li>Uiappoutput.cpp : 整个程序运行中相关信息的显示输出类</li>
+<li>Uidatasingle.cpp : 视频连接界面。有显示网络节点，新建及放弃连接等成员函数</li>
+<li>Uivideowindow.cpp : 视频渲染底板。本程序提供了6个视频显示窗口实现<code>addWin(),delWin()</code>添加删除渲染空间。</li>
+<li>Uimainconf.cpp : 设置界面集合。<code>addConf()</code>增加相关配置界面，此程序中目前有程序，路由，视频和扩展4个配置界面。<code>confUpdate()</code>完成更新。<code>applyClicked()</code>应用配置修改。还有一些其他相关配置参数的操作。</li>
+<li>Uivideocons.cpp : 视频连接列表界面组件 ...</li></ul>
+                        <a class="btn primary xsmall" href="./pages/2014/11/18/ctreat.html">more ...</a>
                 </div>
         </div>
         <hr />
@@ -276,14 +276,14 @@ NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
-<li class="tag-1">
-    <a href="./tag/project.html">
-        <i class="icon-tag icon-large"></i>project
-    </a>
-</li>
 <li class="tag-4">
     <a href="./tag/github.html">
         <i class="icon-tag icon-large"></i>github
+    </a>
+</li>
+<li class="tag-1">
+    <a href="./tag/project.html">
+        <i class="icon-tag icon-large"></i>project
     </a>
 </li>
 
