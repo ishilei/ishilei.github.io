@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>地球太冷</title><link>http://www.ishilei.com/</link><description></description><atom:link href="http://www.ishilei.com/feeds/shi-pin-chuan-shu.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 15 Dec 2014 15:10:00 +0800</lastBuildDate><item><title>H.264的零散笔记整理</title><link>http://www.ishilei.com/pages/2014/12/15/ctreat4.html</link><description>&lt;h4&gt;H264与ffmpeg&lt;/h4&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>地球太冷</title><link>http://www.ishilei.com/</link><description></description><atom:link href="http://www.ishilei.com/feeds/shi-pin-chuan-shu.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 17 Dec 2014 11:10:00 +0800</lastBuildDate><item><title>RTP相关笔记</title><link>http://www.ishilei.com/pages/2014/12/17/ctreat3.html</link><description>&lt;h3&gt;为什么采用RTP而不直接利用UDP发送数据&lt;/h3&gt;
+&lt;p&gt;UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。&lt;/p&gt;
+&lt;h3&gt;H.264 RTP 负载格式&lt;/h3&gt;
+&lt;h6&gt;&lt;font color='green'&gt;NALU&lt;/font&gt;&lt;/h6&gt;
+&lt;p&gt;NALU头由一个字节组成&lt;br /&gt;
++-------------------------------+&lt;br /&gt;
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |&lt;br /&gt;
+| F | NRI   | 　　TYpe 　|　　&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;F : 在Ｈ.264中规定必须置为1&lt;br /&gt;
+NRI : 知道NALU重要性，一般情况不关心&lt;br /&gt;
+Type：指示这个NALU单元的类型。&lt;br /&gt;
+NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的值进行指定。&lt;br /&gt;
+1. 单一NAL单元模式，即一个RTP包仅由一个完整的NALU组成。
+2. 组合封包模式，即可能由多个NAL单元组成一个RTP包。
+3. 分片封包模式，用与把 一个NALU单元封装成多个RTP包。&lt;/p&gt;
+&lt;h6&gt;在我的使用中，只遇到了第一种和第三种类型&lt;/h6&gt;
+&lt;h6&gt;&lt;font color='green'&gt;单一NALU发送&lt;/font&gt;&lt;/h6&gt;
+&lt;p&gt;NALU长度小于MTU大小的包，一般采用这种发送方式。&lt;br /&gt;
+&lt;strong&gt;NALU=StartCode + NALU Header + NALU Payload&lt;/strong&gt;&lt;br /&gt;
+StartCode : 用于标志一个NALU单元的开始，必须是“00 00 00 01”或“00 00 01”&lt;br /&gt;
+NALU Header ： 一个字节，NALU头&lt;br /&gt;
+NALU Payload : NALU负载内容  &lt;/p&gt;
+&lt;h6&gt;RTP打包时，去除StartCode,把剩下的数据封包成RTP包即可&lt;/h6&gt;
+&lt;p&gt;例如一个NALU数据是下面所示：&lt;br /&gt;
+【00 00 00 01 67 42 78 A0 E4 65…… 】&lt;br /&gt;
+封装成RTP包，即如下所示：&lt;br /&gt;
+【RTPHeader | 67 42 78 A0 E4 65 ……】  &lt;/p&gt;
+&lt;h6&gt;客户端是播放器，如VLC，则需要将StartCode去除，而如果使用ffmpeg在客户端解码，则发送前不需要去除StartCode。&lt;/h6&gt;
+&lt;h6&gt;&lt;font color='green'&gt;FU-A的分片格式&lt;/font&gt;&lt;/h6&gt;
+&lt;p&gt;NALU长度大于MTU的包，需要分片发送。12字节的RTP Header后面跟着就是FU-A分片。&lt;br /&gt;
+FU-A分片时FU indicator中type字段等于28。  &lt;/p&gt;
+&lt;h6&gt;注：很多资料中既有NALU indicator和NALU Header两种写法，令人困惑。在单一NALU中一般写成NALU Header，而在FU-A分片中一般写成NALU indicator。你可以认为在FU-A分片中，NALU header被拆分成了FU indicator 和Fu header。&lt;/h6&gt;
+&lt;p&gt;采用FU-A分片，在NALU indicator 后面还有一个字节的FU header&lt;br /&gt;
+FU header 的格式如下：&lt;br /&gt;
++-------------------------------+&lt;br /&gt;
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |&lt;br /&gt;
+| S | E | R |  　Type　　|&lt;br /&gt;
++-------------------------------+&lt;br /&gt;
+S bit： 表示分片NAL的开始，当它为1时，E不能为1&lt;br /&gt;
+E bit ： 表示分片NAL的结束，当它为1是，S不能为1&lt;br /&gt;
+R bit：保留位 
+Type ： 就是NALU indicator中的Type&lt;br /&gt;
+&lt;strong&gt;同一个NALU分包后的FU indicator是完全一致的，FU header只有S以及E位有区别，分别标记开始和结束，它们RTP分包的序列号应该是依次递增的，并且它们的时间戳必须一致。&lt;/strong&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shilei</dc:creator><pubDate>Wed, 17 Dec 2014 11:10:00 +0800</pubDate><guid>tag:www.ishilei.com,2014-12-17:pages/2014/12/17/ctreat3.html</guid></item><item><title>H.264的零散笔记整理</title><link>http://www.ishilei.com/pages/2014/12/15/ctreat4.html</link><description>&lt;h4&gt;H264与ffmpeg&lt;/h4&gt;
 &lt;p&gt;简单地说，H.264是一种编码协议，而ffmpeg则是含有支持H.264编码程序的程序包。H.264压缩比非常高，所以是目前音视频压缩的主流算法。现在已经有了H.265压缩算法，理论上在相同的带宽下可以传输两倍的数据量，并且已经有了不少成熟的产品开始投入使用。&lt;/p&gt;
 &lt;h4&gt;H.264中帧，场，宏块等数据单位&lt;/h4&gt;
 &lt;p&gt;一帧，即一副静止的图像，可分为两场（奇数场和偶数场）。&lt;/p&gt;

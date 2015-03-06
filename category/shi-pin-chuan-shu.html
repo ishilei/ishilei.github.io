@@ -96,6 +96,44 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
+                <h1><a href="../pages/2014/12/17/ctreat3.html">RTP相关笔记</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-12-17T11:10:00">
+        <i class="icon-calendar"></i>2014-12-17
+</abbr>
+<span class="label">By</span>
+<a href="../author/shilei.html"><i class="icon-user"></i>shilei</a>
+<span class="label">Category</span>
+<a href="../category/shi-pin-chuan-shu.html"><i class="icon-folder-open"></i>视频传输</a>.
+
+
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h3>为什么采用RTP而不直接利用UDP发送数据</h3>
+<p>UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。</p>
+<h3>H.264 RTP 负载格式</h3>
+<h6><font color='green'>NALU</font></h6>
+<p>NALU头由一个字节组成<br />
++-------------------------------+<br />
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |<br />
+| F | NRI   | 　　TYpe 　|　　</p>
+<hr />
+<p>F : 在Ｈ.264中规定必须置为1<br />
+NRI : 知道NALU重要性，一般情况不关心<br />
+Type：指示这个NALU单元的类型。<br />
+NALU使用RTP包进行发送的可能类型有三种，都由Type字段相应的值进行指定。<br />
+1. 单一NAL单元模式，即一个RTP包仅由一个完整的NALU组成。
+2. 组合封包模式，即可能由多个NAL单元组成一个RTP包。
+3. 分片封包模式，用与把 一个NALU单元封装成多个RTP包。</p>
+<h6>在我的使用中，只遇到了第一种和第三种类型</h6>
+<h6><font color='green'>单一NALU发送</font></h6>
+<p>NALU长度小于MTU大小的包，一般采用这种发送方式。<br />
+<strong>NALU=StartCode + NALU Header + NALU ...</strong></p>
+                        <a class="btn primary xsmall" href="../pages/2014/12/17/ctreat3.html">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="../pages/2014/12/15/ctreat4.html">H.264的零散笔记整理</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>

@@ -1,5 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>地球太冷</title><link href="http://www.ishilei.com/" rel="alternate"></link><link href="http://www.ishilei.com/feeds/all-zh.atom.xml" rel="self"></link><id>http://www.ishilei.com/</id><updated>2014-12-17T11:10:00+08:00</updated><entry><title>RTP相关笔记</title><link href="http://www.ishilei.com/pages/2014/12/17/ctreat3.html" rel="alternate"></link><updated>2014-12-17T11:10:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-12-17:pages/2014/12/17/ctreat3.html</id><summary type="html">&lt;h3&gt;为什么采用RTP而不直接利用UDP发送数据&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>地球太冷</title><link href="http://www.ishilei.com/" rel="alternate"></link><link href="http://www.ishilei.com/feeds/all-zh.atom.xml" rel="self"></link><id>http://www.ishilei.com/</id><updated>2015-02-10T20:30:00+08:00</updated><entry><title>UNIX网络编程之矩阵相乘</title><link href="http://www.ishilei.com/pages/2015/02/10/ctreat5.html" rel="alternate"></link><updated>2015-02-10T20:30:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2015-02-10:pages/2015/02/10/ctreat5.html</id><summary type="html">&lt;h4&gt;寒假期间，巩固知识，故写如下程序&lt;/h4&gt;
+&lt;p&gt;程序实现目的：用户从客户端输入A、B两个矩阵，服务器返回A、B矩阵相乘的结果矩阵C&lt;/p&gt;
+&lt;h4&gt;客户端代码如下：&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;socket.h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="c1"&gt;//connect,send,recv,setsockopt,&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;types.h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;netinet&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="c1"&gt;//sockaddr_in,htons&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;arpa&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;inet.h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="c1"&gt;//inet_addr,inet_aton&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;unistd.h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="c1"&gt;//read,write&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;netdb.h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="c1"&gt;//gethostbyname&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;error.h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="c1"&gt;//perror&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;stdio.h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="vi"&gt;#include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="c1"&gt;//memset&lt;/span&gt;
+&lt;span class="vi"&gt;#define&lt;/span&gt; &lt;span class="nx"&gt;MAXLINE&lt;/span&gt; &lt;span class="mi"&gt;20004&lt;/span&gt;
+&lt;span class="vi"&gt;#define&lt;/span&gt; &lt;span class="nx"&gt;SERV_PORT&lt;/span&gt; &lt;span class="mi"&gt;9877&lt;/span&gt;
+&lt;span class="vi"&gt;#define&lt;/span&gt; &lt;span class="nx"&gt;SA&lt;/span&gt;  &lt;span class="nx"&gt;struct&lt;/span&gt; &lt;span class="nx"&gt;sockaddr&lt;/span&gt;
+&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nx"&gt;recv_buf&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;MAXLINE&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;;
+void Matrix(FILE *fp,int sockfd); 
+struct matrix
+{
+int a&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="cp"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;;
+int b&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="cp"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;;
+int para&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;;
+}; //结构体包括A、B矩阵的数据，以及A、B矩阵的行列数
+int main(int argc,char **argv)
+{
+
+int sockfd;
+struct sockaddr_in servaddr;
+if(argc!=2)
+{
+    printf(&amp;quot;usage: ./client &lt;span class="nt"&gt;&amp;lt;IPaddress&amp;gt;&lt;/span&gt;&amp;quot;);
+}
+sockfd=socket(AF_INET,SOCK_STREAM,0);  //创建套接字
+bzero(&lt;span class="ni"&gt;&amp;amp;servaddr,sizeof(servaddr));&lt;/span&gt;  //初始化servaddr结构体
+servaddr.sin_family=AF_INET;
+servaddr.sin_port=htons(SERV_PORT);
+inet_pton(AF_INET,argv&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;,&lt;span class="ni"&gt;&amp;amp;servaddr.sin_addr);&lt;/span&gt;
+connect(sockfd,(SA *)&lt;span class="ni"&gt;&amp;amp;servaddr,sizeof(servaddr));&lt;/span&gt;//建立连接
+
+Matrix(stdin,sockfd); //调用Matrix()函数
+/*while(1)
+{
+    printf(&amp;quot;是否继续计算矩阵相乘？y or n: &amp;quot;);
+    if((c=getchar())==&amp;#39;n&amp;#39;)
+        exit(0);
+    else if((c=getchar()==&amp;#39;y&amp;#39;))
+        Matrix(stdin,sockfd);
+}*/
+
+}
+
+void 
+Matrix(FILE *fp,int sockfd)
+{
+
+struct matrix send_matrix;
+struct matrix recv_matrix;
+int x,y,z;
+int i,j,k;
+char c;
+
+printf(&amp;quot;请输入x,y,z(A矩阵x行y列，B矩阵y行z列)：&amp;quot;);//两矩阵相乘A矩阵的列必须与B矩阵的行相等
+scanf(&amp;quot;%d%d%d&amp;quot;,&lt;span class="ni"&gt;&amp;amp;x,&amp;amp;y,&amp;amp;z);&lt;/span&gt;
+if(x==0&lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt;y==0&lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt;z==0) //当输入的矩阵矩阵都为0时
+{   
+    printf(&amp;quot;A B 矩阵相乘的结果C矩阵为：0\n&amp;quot;);
+    exit(1);
+}
+if(x==0&lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt;y!=0||x!=0&lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt;y==0||y==0&lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt;z!=0||y!=0&lt;span class="err"&gt;&amp;amp;&amp;amp;&lt;/span&gt;z==0) //非法输入的处理
+{
+    printf(&amp;quot;输入的矩阵不存在！！请重新运行程序进行输入！&amp;quot;);
+    exit(0);
+}
+send_matrix.para&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;=x;
+send_matrix.para&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;=y;
+send_matrix.para&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;=z;
+printf(&amp;quot;请输入A矩阵(%d行%d列)，输错请重启程序：\n&amp;quot;,x,y);
+for(i=0;i&lt;span class="nt"&gt;&amp;lt;x&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;&lt;span class="na"&gt;i&lt;/span&gt;&lt;span class="err"&gt;++)&lt;/span&gt;
+&lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;j=&lt;/span&gt;&lt;span class="s"&gt;0;j&amp;lt;y;j++)&lt;/span&gt;
+    &lt;span class="err"&gt;{&lt;/span&gt;
+        &lt;span class="na"&gt;scanf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;%&lt;/span&gt;&lt;span class="na"&gt;d&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;,&amp;amp;&lt;/span&gt;&lt;span class="na"&gt;send_matrix&lt;/span&gt;&lt;span class="err"&gt;.&lt;/span&gt;&lt;span class="na"&gt;a&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;][&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="err"&gt;);&lt;/span&gt;
+    &lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;请输入&lt;/span&gt;&lt;span class="na"&gt;B&lt;/span&gt;&lt;span class="err"&gt;矩阵(%&lt;/span&gt;&lt;span class="na"&gt;d&lt;/span&gt;&lt;span class="err"&gt;行%&lt;/span&gt;&lt;span class="na"&gt;d&lt;/span&gt;&lt;span class="err"&gt;列)，输错请重启程序：\&lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;,&lt;/span&gt;&lt;span class="na"&gt;y&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;z&lt;/span&gt;&lt;span class="err"&gt;);&lt;/span&gt;
+&lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;i=&lt;/span&gt;&lt;span class="s"&gt;0;i&amp;lt;y;i++)&lt;/span&gt;
+&lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;j=&lt;/span&gt;&lt;span class="s"&gt;0;j&amp;lt;z;j++)&lt;/span&gt;
+    &lt;span class="err"&gt;{&lt;/span&gt;
+        &lt;span class="na"&gt;scanf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;%&lt;/span&gt;&lt;span class="na"&gt;d&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;,&amp;amp;&lt;/span&gt;&lt;span class="na"&gt;send_matrix&lt;/span&gt;&lt;span class="err"&gt;.&lt;/span&gt;&lt;span class="na"&gt;b&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;][&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="err"&gt;);&lt;/span&gt;
+    &lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;i=&lt;/span&gt;&lt;span class="s"&gt;0;i&amp;lt;x;i++)&lt;/span&gt; &lt;span class="err"&gt;//矩阵&lt;/span&gt;&lt;span class="na"&gt;C&lt;/span&gt;&lt;span class="err"&gt;初始化&lt;/span&gt;
+&lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;j=&lt;/span&gt;&lt;span class="s"&gt;0;j&amp;lt;z;j++)&lt;/span&gt;
+    &lt;span class="err"&gt;{&lt;/span&gt;
+        &lt;span class="na"&gt;recv_matrix&lt;/span&gt;&lt;span class="err"&gt;.&lt;/span&gt;&lt;span class="na"&gt;a&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;][&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="na"&gt;=&lt;/span&gt;&lt;span class="s"&gt;0;&lt;/span&gt;
+    &lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="na"&gt;if&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;send&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;sockfd&lt;/span&gt;&lt;span class="err"&gt;,(&lt;/span&gt;&lt;span class="na"&gt;char&lt;/span&gt;&lt;span class="err"&gt;*)&amp;amp;&lt;/span&gt;&lt;span class="na"&gt;send_matrix&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;sizeof&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;send_matrix&lt;/span&gt;&lt;span class="err"&gt;),&lt;/span&gt;&lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;)==&lt;/span&gt;&lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;)&lt;/span&gt;
+    &lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;&lt;/span&gt;&lt;span class="na"&gt;A&lt;/span&gt; &lt;span class="na"&gt;B&lt;/span&gt; &lt;span class="na"&gt;matrix&lt;/span&gt; &lt;span class="na"&gt;send&lt;/span&gt; &lt;span class="na"&gt;failed&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;);&lt;/span&gt;
+&lt;span class="na"&gt;else&lt;/span&gt;
+    &lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;&lt;/span&gt;&lt;span class="na"&gt;A&lt;/span&gt; &lt;span class="na"&gt;B&lt;/span&gt; &lt;span class="na"&gt;matrix&lt;/span&gt; &lt;span class="na"&gt;send&lt;/span&gt; &lt;span class="na"&gt;succeed&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;);&lt;/span&gt;
+&lt;span class="na"&gt;if&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;recv&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;sockfd&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;recv_buf&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;sizeof&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;recv_buf&lt;/span&gt;&lt;span class="err"&gt;),&lt;/span&gt;&lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;)==&lt;/span&gt;&lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;)&lt;/span&gt;
+    &lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;&lt;/span&gt;&lt;span class="na"&gt;result_matrix&lt;/span&gt; &lt;span class="na"&gt;recv&lt;/span&gt; &lt;span class="na"&gt;failed&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;);&lt;/span&gt;
+&lt;span class="na"&gt;else&lt;/span&gt;
+    &lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;&lt;/span&gt;&lt;span class="na"&gt;result_matrix&lt;/span&gt; &lt;span class="na"&gt;recv&lt;/span&gt; &lt;span class="na"&gt;succeed&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;);&lt;/span&gt;
+&lt;span class="na"&gt;memcpy&lt;/span&gt;&lt;span class="err"&gt;(&amp;amp;&lt;/span&gt;&lt;span class="na"&gt;recv_matrix&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;recv_buf&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;sizeof&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;recv_buf&lt;/span&gt;&lt;span class="err"&gt;));&lt;/span&gt;
+&lt;span class="na"&gt;memset&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;recv_buf&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;&lt;span class="na"&gt;sizeof&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;recv_buf&lt;/span&gt;&lt;span class="err"&gt;));&lt;/span&gt;
+&lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;&lt;/span&gt;&lt;span class="na"&gt;A&lt;/span&gt; &lt;span class="na"&gt;B&lt;/span&gt; &lt;span class="err"&gt;矩阵相乘的结果&lt;/span&gt;&lt;span class="na"&gt;C&lt;/span&gt;&lt;span class="err"&gt;矩阵为：\&lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;);&lt;/span&gt;
+&lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;i=&lt;/span&gt;&lt;span class="s"&gt;0;i&amp;lt;x;i++)&lt;/span&gt;  &lt;span class="err"&gt;//打印结果矩阵&lt;/span&gt;
+&lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;j=&lt;/span&gt;&lt;span class="s"&gt;0;j&amp;lt;z;j++)&lt;/span&gt;
+    &lt;span class="err"&gt;{&lt;/span&gt;
+        &lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;%&lt;/span&gt;&lt;span class="na"&gt;d&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="na"&gt;t&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;,&lt;/span&gt;&lt;span class="na"&gt;recv_matrix&lt;/span&gt;&lt;span class="err"&gt;.&lt;/span&gt;&lt;span class="na"&gt;a&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;][&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="err"&gt;);&lt;/span&gt;
+
+    &lt;span class="err"&gt;}&lt;/span&gt;
+    &lt;span class="na"&gt;printf&lt;/span&gt;&lt;span class="err"&gt;(&amp;quot;\&lt;/span&gt;&lt;span class="na"&gt;r&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="na"&gt;n&lt;/span&gt;&lt;span class="err"&gt;&amp;quot;);&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;h4&gt;服务器端代码如下：&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;sys/socket.h&amp;gt;  &lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;netinet/in.h&amp;gt;  &lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;arpa/inet.h&amp;gt; &lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;unistd.h&amp;gt; &lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;netdb.h&amp;gt; &lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;error.h&amp;gt;  &lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;string.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;errno.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#define MAXLINE 20004&lt;/span&gt;
+&lt;span class="cp"&gt;#define SA  struct sockaddr&lt;/span&gt;
+&lt;span class="cp"&gt;#define LISTENQ 1024&lt;/span&gt;
+&lt;span class="cp"&gt;#define SERV_PORT 9877&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;recv_buf&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;MAXLINE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;matrix&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;para&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;   
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//A矩阵x行y列，B矩阵y行z列&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;listenfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;connfd&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;matrix&lt;/span&gt; &lt;span class="n"&gt;recv_matrix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;result_matrix&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;pid_t&lt;/span&gt; &lt;span class="n"&gt;childpid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;socklen_t&lt;/span&gt; &lt;span class="n"&gt;clilen&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr_in&lt;/span&gt; &lt;span class="n"&gt;cliaddr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;listenfd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_INET&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;bzero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin_family&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;AF_INET&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin_addr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;s_addr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;htonl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;INADDR_ANY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin_port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;htons&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;SERV_PORT&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;listenfd&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="n"&gt;SA&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;servaddr&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;listen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;listenfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;LISTENQ&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="n"&gt;clilen&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cliaddr&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;connfd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;accept&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;listenfd&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="n"&gt;SA&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;cliaddr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;clilen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;recv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;connfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;recv_buf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;recv_buf&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;matrix A，B recv failed...&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;matrix A，B recv succeed...&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;memcpy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;recv_matrix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;recv_buf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;recv_buf&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;recv_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;para&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="c1"&gt;//获取A，B矩阵的行列参数&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;recv_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;para&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;recv_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;para&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;//初始化结果矩阵&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;result_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="c1"&gt;//矩阵相乘&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;result_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="n"&gt;recv_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;recv_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;//printf(&amp;quot;%d%d%d%d%d\n&amp;quot;,recv_matrix.a[0][0],recv_matrix.a[1][1],recv_matrix.b[0][0],recv_matrix.b[1][1],recv_matrix.para[0]);&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;connfd&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;result_matrix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;result_matrix&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;//发送结果矩阵&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;result_matrix send failed...&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;result_matrix send succeed...&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;connfd&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="c1"&gt;//关闭连接&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;hr /&gt;
+&lt;h3&gt;这是一个十分简单的程序，其中需要思考的地方就是A、B矩阵的数据以怎样的数据结构传送到服务器端。我在这里实现的方式是，定义一个matirx结构体，结构体中包含两个二维数组分别表示A、B矩阵，还有一个一维数组，其中存放A、B矩阵的行列数信息。&lt;/h3&gt;</summary></entry><entry><title>RTP相关笔记</title><link href="http://www.ishilei.com/pages/2014/12/17/ctreat3.html" rel="alternate"></link><updated>2014-12-17T11:10:00+08:00</updated><author><name>shilei</name></author><id>tag:www.ishilei.com,2014-12-17:pages/2014/12/17/ctreat3.html</id><summary type="html">&lt;h3&gt;为什么采用RTP而不直接利用UDP发送数据&lt;/h3&gt;
 &lt;p&gt;UDP无法加载流的时间信息，而RTP可以提供时间信息并且实现流同步。&lt;/p&gt;
 &lt;h3&gt;H.264 RTP 负载格式&lt;/h3&gt;
 &lt;h6&gt;&lt;font color='green'&gt;NALU&lt;/font&gt;&lt;/h6&gt;
